@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#f3f6f9;font-family:'Figtree',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+*{box-sizing:border-box}
+a{color:#0077b8}a:hover{color:#005a8c}
+[data-theme]{--bg:#f3f6f9;--surface:#ffffff;--ink:#0d2233;--muted:#4b6072;--line:rgba(13,34,51,.10);--brand:#0077b8;--brand-ink:#ffffff;--chip:#e3eef6;--chip-ink:#0b4f7a;--warn-bg:#fff3dc;--warn-ink:#6b4200;--ok-bg:#e1f5ec;--ok-ink:#0c5c3b;--ko-bg:#fde7ea;--ko-ink:#8a1c2c;--nav:rgba(255,255,255,.92)}
+[data-theme="dark"]{--bg:#04263a;--surface:#0a3550;--ink:#eef5fa;--muted:#a9c2d4;--line:rgba(255,255,255,.12);--brand:#5cbcff;--brand-ink:#04263a;--chip:#0f4466;--chip-ink:#cfe8fb;--warn-bg:#3b2c0c;--warn-ink:#ffd58f;--ok-bg:#0d3f2c;--ok-ink:#9ff0c8;--ko-bg:#4a1720;--ko-ink:#ffb7c2;--nav:rgba(4,38,58,.92)}
+[data-car]::-webkit-scrollbar{display:none}
+@keyframes cxFloatA{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(-14px,10px) scale(1.04)}66%{transform:translate(8px,16px) scale(.97)}}
+@keyframes cxFloatB{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(16px,-12px) scale(1.08)}}
+@keyframes cxFloatC{0%,100%{transform:translate(0,0)}50%{transform:translate(-8px,8px)}}
+@keyframes cxUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+@keyframes cxPop{0%{transform:scale(0)}60%{transform:scale(1.35)}100%{transform:scale(1)}}
+@keyframes cxBurst{0%{transform:translateY(0) scale(1);opacity:1}100%{transform:translateY(-64px) scale(.2);opacity:0}}
+@keyframes cxRing{0%{opacity:1;transform:scale(1)}100%{opacity:0;transform:scale(1.04)}}
+@keyframes cxSpin{to{transform:rotate(360deg)}}@keyframes cxOrbA{0%,100%{transform:translate(0,0)}50%{transform:translate(6px,8px)}}@keyframes cxOrbB{0%,100%{transform:translate(0,0)}50%{transform:translate(-5px,-6px)}}@keyframes cxShimmer{0%,100%{background-position:0% 0}50%{background-position:100% 0}}@keyframes cxDrift{0%,100%{transform:translate(0,0)}25%{transform:translate(40px,14px)}50%{transform:translate(90px,4px)}75%{transform:translate(30px,20px)}}
+@keyframes cxShift{from{background-position:0% 0}to{background-position:200% 0}}
+@keyframes cxSheet{from{transform:translateY(100%)}to{transform:none}}@keyframes cxFade{from{opacity:0}to{opacity:1}}
+@keyframes cxDots{0%,80%,100%{opacity:.25;transform:translateY(0)}40%{opacity:1;transform:translateY(-4px)}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</helmet>
+<div data-theme="{{ theme }}" ref="{{ rootRef }}" onPointerMove="{{ onPointer }}" style="min-height:100vh;background:var(--bg);color:var(--ink);padding-bottom:96px;transition:background .2s">
+
+<header style="position:sticky;top:0;z-index:20;background:#0077b8;color:#fff;overflow:hidden;box-shadow:0 6px 20px rgba(4,38,58,.18)">
+<div style="position:absolute;right:-36px;top:-58px;width:120px;height:120px;border-radius:50%;background:linear-gradient(180deg,#38c08f,#0aa0f5);animation:cxFloatA 10s ease-in-out infinite;translate:calc(var(--px,0) * 20px) calc(var(--py,0) * 12px);transition:translate .8s cubic-bezier(.2,.7,.2,1);pointer-events:none"></div>
+<div style="position:absolute;left:38%;bottom:-40px;width:56px;height:56px;border-radius:50%;background:linear-gradient(180deg,#ff2bd6,#ff9a5c);animation:cxFloatB 7s ease-in-out infinite;translate:calc(var(--px,0) * -26px) calc(var(--py,0) * -10px);transition:translate .8s cubic-bezier(.2,.7,.2,1);pointer-events:none"></div>
+<div style="position:absolute;left:62%;top:6px;width:14px;height:14px;border-radius:50%;background:#ffd02e;opacity:.85;animation:cxDrift 12s ease-in-out infinite;pointer-events:none"></div>
+<div style="position:absolute;left:18%;top:-12px;width:28px;height:28px;border-radius:50%;background:linear-gradient(180deg,#38c08f,#0aa0f5);opacity:.6;animation:cxFloatB 9s ease-in-out infinite reverse;pointer-events:none"></div>
+<div style="position:relative;max-width:1040px;margin:0 auto;padding:12px 14px;display:flex;align-items:center;gap:10px">
+<span aria-hidden="true" style="flex:none;width:42px;height:42px;border-radius:50%;padding:2px;background:conic-gradient(from 0deg,#ffd02e,#ff9f45,#ff2bd6,#0aa0f5,#38c08f,#ffd02e);animation:cxSpin 6s linear infinite;display:grid;place-items:center;transition:transform .3s cubic-bezier(.3,1.6,.5,1)">
+<span style="position:relative;width:100%;height:100%;border-radius:50%;background:#0077b8;overflow:hidden;display:block;animation:cxSpin 6s linear infinite reverse"><span style="position:absolute;left:6px;top:7px;width:17px;height:17px;border-radius:50%;background:linear-gradient(180deg,#38c08f,#0aa0f5);animation:cxOrbA 5s ease-in-out infinite"></span><span style="position:absolute;right:6px;bottom:6px;width:12px;height:12px;border-radius:50%;background:linear-gradient(180deg,#ff2bd6,#ff9a5c);animation:cxOrbB 4s ease-in-out infinite"></span><span style="position:absolute;right:9px;top:8px;width:6px;height:6px;border-radius:50%;background:#ffd02e;animation:cxOrbB 3s ease-in-out infinite reverse"></span></span>
+</span>
+<div style="display:flex;flex-direction:column;gap:2px;min-width:0;flex:1">
+<div style="display:flex;align-items:center;gap:8px;min-width:0">
+<span style="min-width:0;font-size:clamp(16px,4.6vw,19px);line-height:1.15;font-weight:800;letter-spacing:-.01em;background:linear-gradient(90deg,#ffd02e,#ff9f45);-webkit-background-clip:text;background-clip:text;color:transparent;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Emilien Nizon</span>
+<a href="{{ linkedinUrl }}" target="_blank" rel="noopener" style-hover="background:rgba(255,255,255,.28);transform:translateY(-1px)" style="flex:none;height:20px;padding:0 7px;border-radius:6px;background:rgba(255,255,255,.16);color:#fff;font:800 11px/20px 'Figtree',sans-serif;text-decoration:none;transition:background .2s,transform .2s">in</a>
+</div>
+</div>
+<div style="display:flex;background:rgba(255,255,255,.16);border-radius:999px;padding:3px">
+<button onClick="{{ setFr }}" style-active="transform:scale(.94)" style="transition:transform .15s ease,background .25s,color .25s;border:0;border-radius:999px;padding:0 10px;height:30px;font:800 12px 'Figtree',sans-serif;cursor:pointer;background:{{ frBg }};color:{{ frInk }}">FR</button>
+<button onClick="{{ setEn }}" style-active="transform:scale(.94)" style="transition:transform .15s ease,background .25s,color .25s;border:0;border-radius:999px;padding:0 10px;height:30px;font:800 12px 'Figtree',sans-serif;cursor:pointer;background:{{ enBg }};color:{{ enInk }}">EN</button>
+</div>
+<button onClick="{{ toggleTheme }}" aria-label="{{ t.themeLabel }}" title="{{ t.themeLabel }}" style-hover="background:rgba(255,255,255,.28)" style-active="transform:scale(.9) rotate(180deg)" style="flex:none;transition:transform .35s cubic-bezier(.3,1.6,.5,1),background .2s;width:36px;height:36px;border-radius:999px;border:0;background:rgba(255,255,255,.16);display:grid;place-items:center;cursor:pointer;padding:0">
+<span style="width:16px;height:16px;border-radius:50%;border:2px solid #fff;background:linear-gradient(90deg,#fff 50%,transparent 50%);transform:rotate({{ themeRot }});transition:transform .5s cubic-bezier(.3,1.6,.5,1)"></span>
+</button>
+</div>
+<div style="position:relative;height:3px;background:linear-gradient(90deg,#38c08f,#0aa0f5,#ff2bd6,#ff9f45,#ffd02e,#38c08f);background-size:200% 100%;animation:cxShift 8s linear infinite"></div>
+</header>
+
+<main style="max-width:1040px;margin:0 auto">
+
+<sc-if value="{{ isChat }}" hint-placeholder-val="{{ true }}">
+<section style="max-width:680px;margin:0 auto;padding:16px 16px 88px;display:flex;flex-direction:column;gap:14px;animation:cxUp .45s cubic-bezier(.2,.7,.2,1) both">
+<div style="border-radius:24px;background:#0077b8;color:#fff;padding:26px 22px 22px;position:relative;overflow:hidden;display:flex;flex-direction:column;gap:10px">
+<div style="position:absolute;right:-70px;top:-90px;width:200px;height:200px;border-radius:50%;background:linear-gradient(180deg,#38c08f,#0aa0f5);animation:cxFloatA 11s ease-in-out infinite;translate:calc(var(--px,0) * 28px) calc(var(--py,0) * 22px);transition:translate .8s cubic-bezier(.2,.7,.2,1)"></div>
+<div style="position:absolute;right:40px;bottom:-70px;width:110px;height:110px;border-radius:50%;background:linear-gradient(180deg,#ff2bd6,#ff9a5c);animation:cxFloatB 8s ease-in-out infinite;translate:calc(var(--px,0) * -36px) calc(var(--py,0) * -26px);transition:translate .8s cubic-bezier(.2,.7,.2,1)"></div>
+<h1 style="position:relative;margin:0;font-size:30px;line-height:1.08;font-weight:800;letter-spacing:-.01em;background:linear-gradient(90deg,#ffd02e,#ff9f45);-webkit-background-clip:text;background-clip:text;color:transparent;max-width:420px;text-wrap:balance">{{ t.chatTitle }}</h1>
+<p style="position:relative;margin:0;font-size:16px;line-height:1.45;color:#fff;max-width:460px;text-wrap:pretty">{{ t.chatText }}</p>
+</div>
+<sc-if value="{{ noMessages }}" hint-placeholder-val="{{ true }}">
+<div style="display:flex;flex-direction:column;gap:8px">
+<span style="font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)">{{ t.chatTry }}</span>
+<sc-for list="{{ suggestions }}" as="sg" hint-placeholder-count="3">
+<button onClick="{{ sg.ask }}" style-hover="border-color:var(--brand);transform:translateY(-1px)" style-active="transform:scale(.96)" style="transition:transform .15s ease,background .2s,border-color .2s,color .2s;text-align:left;min-height:48px;padding:12px 16px;border-radius:14px;border:1px solid var(--line);background:var(--surface);color:var(--ink);font:600 15px/1.35 'Figtree',sans-serif;cursor:pointer">{{ sg.label }}</button>
+</sc-for>
+</div>
+</sc-if>
+<sc-for list="{{ messages }}" as="msg" hint-placeholder-count="0">
+<sc-if value="{{ msg.isUser }}" hint-placeholder-val="{{ false }}">
+<div style="animation:cxUp .3s ease-out both;align-self:flex-end;max-width:85%;background:var(--brand);color:var(--brand-ink);padding:12px 16px;border-radius:18px 18px 4px 18px;font-size:16px;line-height:1.45;white-space:pre-wrap;text-wrap:pretty">{{ msg.text }}</div>
+</sc-if>
+<sc-if value="{{ msg.isBot }}" hint-placeholder-val="{{ false }}">
+<div style="animation:cxUp .35s ease-out both;align-self:flex-start;max-width:90%;background:var(--surface);border:1px solid var(--line);color:var(--ink);padding:12px 16px;border-radius:18px 18px 18px 4px;font-size:16px;line-height:1.5;white-space:pre-wrap;text-wrap:pretty"><sc-for list="{{ msg.parts }}" as="pt" hint-placeholder-count="0"><sc-if value="{{ pt.isText }}" hint-placeholder-val="{{ false }}"><span style="font-weight:{{ pt.weight }}">{{ pt.text }}</span></sc-if><sc-if value="{{ pt.isLink }}" hint-placeholder-val="{{ false }}"><a href="{{ pt.url }}" target="_blank" rel="noopener" style="color:var(--brand);font-weight:700;word-break:break-word">{{ pt.text }} ↗</a></sc-if><sc-if value="{{ pt.isNav }}" hint-placeholder-val="{{ false }}"><button onClick="{{ pt.go }}" style-hover="transform:translateY(-1px)" style="display:inline-flex;align-items:center;gap:4px;margin:2px 2px;padding:3px 10px;border-radius:999px;border:0;background:var(--chip);color:var(--chip-ink);font:700 14px 'Figtree',sans-serif;cursor:pointer;vertical-align:baseline;transition:transform .2s">{{ pt.text }} →</button></sc-if><sc-if value="{{ pt.isVideo }}" hint-placeholder-val="{{ false }}"><span style="display:block;position:relative;aspect-ratio:16 / 9;border-radius:12px;overflow:hidden;background:#04263a;margin:8px 0;white-space:normal"><sc-if value="{{ pt.v.playing }}" hint-placeholder-val="{{ false }}"><iframe src="{{ pt.v.embed }}" title="{{ pt.v.title }}" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen="{{ true }}" referrerPolicy="strict-origin-when-cross-origin" style="position:absolute;inset:0;width:100%;height:100%;border:0"></iframe></sc-if><sc-if value="{{ pt.v.idle }}" hint-placeholder-val="{{ false }}"><button onClick="{{ pt.v.play }}" style="position:absolute;inset:0;border:0;padding:0;cursor:pointer;background:#04263a"><span style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.85;background:#04263a center / cover no-repeat;background-image:url({{ pt.v.thumb }})"></span><span style="position:absolute;left:50%;top:50%;width:48px;height:48px;margin:-24px 0 0 -24px;border-radius:50%;background:linear-gradient(180deg,#ffd02e,#ff9f45);display:grid;place-items:center"><span style="width:0;height:0;margin-left:3px;border-left:14px solid #04263a;border-top:9px solid transparent;border-bottom:9px solid transparent"></span></span><span style="position:absolute;left:10px;right:10px;bottom:8px;text-align:left;color:#fff;font:700 13px/1.3 'Figtree',sans-serif">{{ pt.v.title }}</span></button></sc-if></span></sc-if></sc-for></div>
+</sc-if>
+</sc-for>
+<sc-if value="{{ thinking }}" hint-placeholder-val="{{ false }}">
+<div style="align-self:flex-start;background:var(--surface);border:1px solid var(--line);padding:16px 18px;border-radius:18px 18px 18px 4px;display:flex;gap:5px;animation:cxUp .3s ease-out both"><span style="width:7px;height:7px;border-radius:50%;background:var(--brand);animation:cxDots 1.1s infinite"></span><span style="width:7px;height:7px;border-radius:50%;background:var(--brand);animation:cxDots 1.1s .15s infinite"></span><span style="width:7px;height:7px;border-radius:50%;background:var(--brand);animation:cxDots 1.1s .3s infinite"></span></div>
+</sc-if>
+</section>
+<form onSubmit="{{ send }}" style="position:fixed;left:0;right:0;bottom:calc(61px + env(safe-area-inset-bottom));z-index:25;background:var(--nav);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1px solid var(--line)">
+<div style="max-width:680px;margin:0 auto;padding:10px 16px;display:flex;gap:8px">
+<input value="{{ draft }}" onChange="{{ onDraft }}" placeholder="{{ t.chatPlaceholder }}" style="flex:1;min-width:0;height:46px;padding:0 16px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);font:500 16px 'Figtree',sans-serif;outline:none">
+<button type="submit" aria-label="{{ t.send }}" style-active="transform:scale(.96)" style="transition:transform .15s ease,background .2s,border-color .2s,color .2s;flex:none;width:46px;height:46px;border-radius:50%;border:0;background:var(--brand);color:var(--brand-ink);font:800 18px 'Figtree',sans-serif;cursor:pointer">↑</button>
+</div>
+</form>
+</sc-if>
+
+<sc-if value="{{ isMethods }}" hint-placeholder-val="{{ true }}">
+<section style="margin:16px;border-radius:24px;background:#0077b8;color:#fff;padding:28px 22px 22px;position:relative;overflow:hidden;animation:cxUp .45s cubic-bezier(.2,.7,.2,1) both">
+<div style="position:absolute;right:-70px;top:-90px;width:200px;height:200px;border-radius:50%;background:linear-gradient(180deg,#38c08f,#0aa0f5);animation:cxFloatA 11s ease-in-out infinite;translate:calc(var(--px,0) * 28px) calc(var(--py,0) * 22px);transition:translate .8s cubic-bezier(.2,.7,.2,1)"></div>
+<div style="position:absolute;right:40px;bottom:-70px;width:110px;height:110px;border-radius:50%;background:linear-gradient(180deg,#ff2bd6,#ff9a5c);animation:cxFloatB 8s ease-in-out infinite;translate:calc(var(--px,0) * -36px) calc(var(--py,0) * -26px);transition:translate .8s cubic-bezier(.2,.7,.2,1)"></div>
+<div style="position:relative;display:flex;flex-direction:column;gap:12px;max-width:560px">
+<h1 style="margin:0;font-size:32px;line-height:1.05;font-weight:800;letter-spacing:-.01em;background:linear-gradient(90deg,#ffd02e,#ff9f45);-webkit-background-clip:text;background-clip:text;color:transparent;text-wrap:balance">{{ t.heroTitle }}</h1>
+<p style="margin:0;font-size:16px;line-height:1.45;color:#fff;text-wrap:pretty">{{ t.heroText }}</p>
+<div style="display:flex;flex-direction:column;gap:6px;margin-top:6px">
+<div style="height:6px;border-radius:99px;background:rgba(255,255,255,.25);overflow:hidden"><div style="height:100%;border-radius:99px;background:#ffd02e;width:{{ readPct }};transition:width .3s"></div></div>
+<span style="font-size:13px;font-weight:600;color:#fff">{{ progressLabel }}</span>
+<button onClick="{{ openChoose }}" style-hover="transform:translateY(-1px)" style-active="transform:scale(.96)" style="align-self:flex-start;margin-top:6px;height:42px;padding:0 16px;border-radius:999px;border:0;background:#ffd02e;color:#04263a;font:800 14px 'Figtree',sans-serif;cursor:pointer;transition:transform .2s">{{ t.chooseTitle }} →</button>
+</div>
+</div>
+</section>
+
+<div style="display:flex;gap:8px;overflow-x:auto;padding:4px 16px 12px;scrollbar-width:none" data-car="1">
+<sc-for list="{{ filterChips }}" as="f" hint-placeholder-count="4">
+<button onClick="{{ f.toggle }}" style-active="transform:scale(.96)" style="transition:transform .15s ease,background .2s,border-color .2s,color .2s;flex:none;height:36px;padding:0 14px;border-radius:999px;font:600 14px 'Figtree',sans-serif;cursor:pointer;border:1px solid {{ f.border }};background:{{ f.bg }};color:{{ f.ink }}">{{ f.label }}</button>
+</sc-for>
+</div>
+
+<div style="display:flex;align-items:center;justify-content:space-between;padding:0 16px 10px;gap:12px">
+<span style="font-size:14px;font-weight:700;color:var(--muted);font-variant-numeric:tabular-nums">{{ counter }}</span>
+<div style="display:flex;gap:8px">
+<button onClick="{{ prev }}" aria-label="{{ t.prev }}" style-active="transform:scale(.96)" style="transition:transform .15s ease,background .2s,border-color .2s,color .2s;width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:var(--surface);color:var(--ink);font:700 18px 'Figtree',sans-serif;cursor:pointer">←</button>
+<button onClick="{{ next }}" aria-label="{{ t.next }}" style-active="transform:scale(.96)" style="transition:transform .15s ease,background .2s,border-color .2s,color .2s;width:40px;height:40px;border-radius:50%;border:0;background:var(--brand);color:var(--brand-ink);font:700 18px 'Figtree',sans-serif;cursor:pointer">→</button>
+</div>
+</div>
+
+<sc-if value="{{ noResults }}" hint-placeholder-val="{{ false }}">
+<p style="margin:0 16px;padding:24px;border-radius:20px;border:1px dashed var(--line);color:var(--muted);font-size:15px;text-align:center">{{ t.noResults }}</p>
+</sc-if>
+
+<div ref="{{ carRef }}" onScroll="{{ onCarScroll }}" data-car="1" style="position:relative;display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding:0 16px;padding:0 16px 8px;scrollbar-width:none;align-items:stretch">
+<sc-for list="{{ methods }}" as="m" hint-placeholder-count="2">
+<article data-card="1" style="animation:cxUp .5s cubic-bezier(.2,.7,.2,1) both;transition:transform .3s,box-shadow .3s;flex:0 0 min(520px,calc(100% - 32px));scroll-snap-align:start;background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:24px 20px 20px;position:relative;overflow:hidden;display:flex;flex-direction:column;gap:18px">
+<div style="position:absolute;right:-40px;top:-40px;width:110px;height:110px;border-radius:50%;background:linear-gradient(180deg,#38c08f,#0aa0f5);opacity:.9;animation:cxFloatC 9s ease-in-out infinite"></div>
+<div style="position:relative;display:flex;flex-direction:column;gap:10px;padding-right:56px">
+<span style="font-size:13px;font-weight:800;color:var(--brand);letter-spacing:.06em">{{ m.num }}</span>
+<h2 style="margin:0;font-size:27px;line-height:1.1;font-weight:800;letter-spacing:-.01em">{{ m.name }}</h2>
+<div style="display:flex;flex-wrap:wrap;gap:6px">
+<sc-for list="{{ m.tags }}" as="tg" hint-placeholder-count="2">
+<span style="font-size:12px;font-weight:700;padding:4px 10px;border-radius:999px;background:var(--chip);color:var(--chip-ink)">{{ tg }}</span>
+</sc-for>
+</div>
+</div>
+<div style="display:flex;flex-direction:column;gap:6px">
+<span style="font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)">{{ t.lQuestion }}</span>
+<p style="margin:0;font-size:20px;line-height:1.3;font-weight:600;text-wrap:pretty">{{ m.q }}</p>
+</div>
+<div style="display:grid;grid-template-columns:minmax(0,1fr) auto;gap:14px 16px;padding:16px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+<div style="display:flex;flex-direction:column;gap:4px">
+<span style="font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)">{{ t.lWhen }}</span>
+<span style="font-size:16px;line-height:1.4;text-wrap:pretty">{{ m.when }}</span>
+</div>
+<div style="display:flex;flex-direction:column;gap:4px;text-align:right">
+<span style="font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)">{{ t.lHowMany }}</span>
+<span style="font-size:15px;font-weight:700;color:var(--muted);white-space:nowrap">{{ m.n }}</span>
+</div>
+<div style="grid-column:1 / -1;display:flex;flex-direction:column;gap:4px">
+<span style="font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)">{{ t.lGet }}</span>
+<span style="font-size:16px;line-height:1.45;text-wrap:pretty">{{ m.get }}</span>
+</div>
+</div>
+<div style="background:var(--warn-bg);color:var(--warn-ink);border-radius:14px;padding:14px 16px;display:flex;flex-direction:column;gap:4px">
+<span style="font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase">{{ t.lWatch }}</span>
+<span style="font-size:15px;line-height:1.45;text-wrap:pretty">{{ m.watch }}</span>
+</div>
+<sc-if value="{{ m.hasVideo }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;flex-direction:column;gap:8px">
+<span style="font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)">{{ t.lVideo }}</span>
+<div style="position:relative;aspect-ratio:16 / 9;border-radius:14px;overflow:hidden;background:#04263a">
+<sc-if value="{{ m.v.playing }}" hint-placeholder-val="{{ false }}">
+<iframe src="{{ m.v.embed }}" title="{{ m.v.title }}" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen="{{ true }}" referrerPolicy="strict-origin-when-cross-origin" style="position:absolute;inset:0;width:100%;height:100%;border:0"></iframe>
+</sc-if>
+<sc-if value="{{ m.v.idle }}" hint-placeholder-val="{{ false }}">
+<button onClick="{{ m.v.play }}" aria-label="{{ t.play }}" style-hover="transform:scale(1.01)" style="position:absolute;inset:0;border:0;padding:0;cursor:pointer;background:#04263a;transition:transform .25s">
+<span style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.85;background:#04263a center / cover no-repeat;background-image:url({{ m.v.thumb }})"></span>
+<span style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(4,38,58,0) 40%,rgba(4,38,58,.75))"></span>
+<span style="position:absolute;left:50%;top:50%;width:60px;height:60px;margin:-30px 0 0 -30px;border-radius:50%;background:linear-gradient(180deg,#ffd02e,#ff9f45);display:grid;place-items:center;box-shadow:0 8px 24px rgba(0,0,0,.3)"><span style="width:0;height:0;margin-left:4px;border-left:18px solid #04263a;border-top:11px solid transparent;border-bottom:11px solid transparent"></span></span>
+<span style="position:absolute;left:14px;bottom:10px;right:14px;text-align:left;color:#fff;font:700 14px/1.3 'Figtree',sans-serif">{{ m.v.title }}</span>
+</button>
+</sc-if>
+</div>
+<div style="display:flex;flex-wrap:wrap;gap:6px 14px"><a href="{{ m.v.url }}" target="_blank" rel="noopener" style="font-size:13px;font-weight:600;color:var(--muted);text-decoration:none">Nielsen Norman Group · {{ m.v.dur }} ↗</a><a href="{{ m.v.yturl }}" target="_blank" rel="noopener" style="font-size:13px;font-weight:600;color:var(--brand);text-decoration:none">{{ t.onYoutube }} ↗</a></div>
+</div>
+</sc-if>
+<sc-if value="{{ m.hasExtra }}" hint-placeholder-val="{{ false }}">
+<p style="margin:0;font-size:14px;line-height:1.5;color:var(--muted);text-wrap:pretty">{{ m.extra }}</p>
+</sc-if>
+<sc-if value="{{ m.hasLink }}" hint-placeholder-val="{{ false }}">
+<a href="{{ m.linkUrl }}" target="_blank" rel="noopener" style="font-size:15px;font-weight:700;color:var(--brand)">{{ m.linkLabel }} ↗</a>
+</sc-if>
+<div style="flex:1"></div>
+<sc-if value="{{ m.justRead }}" hint-placeholder-val="{{ false }}">
+<div style="position:absolute;inset:0;border-radius:22px;border:2px solid var(--ok-ink);pointer-events:none;animation:cxRing .8s ease-out forwards"></div>
+</sc-if>
+<div style="position:relative">
+<sc-if value="{{ m.justRead }}" hint-placeholder-val="{{ false }}">
+<div style="position:absolute;left:50%;top:50%;width:0;height:0;pointer-events:none;z-index:2">
+<sc-for list="{{ burstDots }}" as="d" hint-placeholder-count="0">
+<div style="position:absolute;left:0;top:0;rotate:{{ d.rot }}"><span style="display:block;margin:-5px 0 0 -5px;width:{{ d.size }};height:{{ d.size }};border-radius:50%;background:{{ d.color }};animation:cxBurst .75s cubic-bezier(.1,.8,.3,1) {{ d.delay }} both"></span></div>
+</sc-for>
+</div>
+</sc-if>
+<sc-if value="{{ m.read }}" hint-placeholder-val="{{ false }}">
+<button onClick="{{ m.toggleRead }}" style-active="transform:scale(.96)" style="transition:transform .15s ease,background .2s,border-color .2s,color .2s;height:48px;border-radius:14px;border:0;background:var(--ok-bg);color:var(--ok-ink);font:700 15px 'Figtree',sans-serif;cursor:pointer;width:100%;display:flex;align-items:center;justify-content:center;gap:8px"><span style="width:22px;height:22px;border-radius:50%;background:var(--ok-ink);color:var(--ok-bg);display:grid;place-items:center;font-size:13px;font-weight:800;animation:cxPop .45s cubic-bezier(.3,1.6,.5,1) both">✓</span>{{ t.read }}</button>
+</sc-if>
+<sc-if value="{{ m.unread }}" hint-placeholder-val="{{ true }}">
+<button onClick="{{ m.toggleRead }}" style-active="transform:scale(.96)" style="transition:transform .15s ease,background .2s,border-color .2s,color .2s;height:48px;border-radius:14px;border:1.5px solid var(--brand);background:transparent;color:var(--brand);font:700 15px 'Figtree',sans-serif;cursor:pointer;width:100%">{{ t.markRead }}</button>
+</sc-if>
+</div>
+</article>
+</sc-for>
+</div>
+</sc-if>
+
+<sc-if value="{{ isChoose }}" hint-placeholder-val="{{ false }}">
+<section style="max-width:680px;margin:0 auto;padding:24px 16px;display:flex;flex-direction:column;gap:24px;animation:cxUp .45s cubic-bezier(.2,.7,.2,1) both">
+<div style="display:flex;flex-direction:column;gap:8px">
+<h1 style="margin:0;font-size:30px;line-height:1.1;font-weight:800">{{ t.chooseTitle }}</h1>
+<p style="margin:0;font-size:16px;line-height:1.45;color:var(--muted);text-wrap:pretty">{{ t.chooseText }}</p>
+</div>
+<div style="display:flex;flex-direction:column;gap:10px">
+<span style="font-size:13px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--brand)">1 · {{ t.q1 }}</span>
+<sc-for list="{{ goalOpts }}" as="o" hint-placeholder-count="4">
+<button onClick="{{ o.pick }}" style-active="transform:scale(.96)" style="transition:transform .15s ease,background .2s,border-color .2s,color .2s;text-align:left;min-height:52px;padding:12px 16px;border-radius:14px;font:600 16px/1.35 'Figtree',sans-serif;cursor:pointer;border:1.5px solid {{ o.border }};background:{{ o.bg }};color:var(--ink)">{{ o.label }}</button>
+</sc-for>
+</div>
+<div style="display:flex;flex-direction:column;gap:10px">
+<span style="font-size:13px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--brand)">2 · {{ t.q2 }}</span>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px">
+<sc-for list="{{ stageOpts }}" as="o" hint-placeholder-count="3">
+<button onClick="{{ o.pick }}" style-active="transform:scale(.96)" style="transition:transform .15s ease,background .2s,border-color .2s,color .2s;text-align:left;min-height:52px;padding:12px 16px;border-radius:14px;font:600 15px/1.3 'Figtree',sans-serif;cursor:pointer;border:1.5px solid {{ o.border }};background:{{ o.bg }};color:var(--ink)">{{ o.label }}</button>
+</sc-for>
+</div>
+</div>
+<sc-if value="{{ hasReco }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;flex-direction:column;gap:10px">
+<span style="font-size:13px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)">{{ t.recoTitle }}</span>
+<sc-for list="{{ reco }}" as="r" hint-placeholder-count="2">
+<div style="background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:18px;display:flex;flex-direction:column;gap:8px">
+<div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px">
+<h3 style="margin:0;font-size:20px;font-weight:800">{{ r.name }}</h3>
+<span style="font-size:12px;font-weight:700;padding:4px 10px;border-radius:999px;background:var(--chip);color:var(--chip-ink);white-space:nowrap">{{ r.badge }}</span>
+</div>
+<p style="margin:0;font-size:15px;line-height:1.45;color:var(--muted);text-wrap:pretty">{{ r.q }}</p>
+<button onClick="{{ r.open }}" style-active="transform:scale(.96)" style="transition:transform .15s ease,background .2s,border-color .2s,color .2s;align-self:flex-start;height:44px;padding:0 16px;border-radius:12px;border:0;background:var(--brand);color:var(--brand-ink);font:700 14px 'Figtree',sans-serif;cursor:pointer">{{ t.openCard }} →</button>
+</div>
+</sc-for>
+</div>
+</sc-if>
+</section>
+</sc-if>
+
+<sc-if value="{{ isExercise }}" hint-placeholder-val="{{ false }}">
+<section style="max-width:680px;margin:0 auto;padding:16px;display:flex;flex-direction:column;gap:16px;animation:cxUp .45s cubic-bezier(.2,.7,.2,1) both">
+<div style="border-radius:24px;background:#0077b8;color:#fff;padding:28px 22px;position:relative;overflow:hidden;min-height:180px;display:flex;flex-direction:column;justify-content:flex-end;gap:8px">
+<div style="position:absolute;right:-60px;top:-80px;width:190px;height:190px;border-radius:50%;background:linear-gradient(180deg,#38c08f,#0aa0f5);animation:cxFloatA 11s ease-in-out infinite;translate:calc(var(--px,0) * 28px) calc(var(--py,0) * 22px);transition:translate .8s cubic-bezier(.2,.7,.2,1)"></div>
+<div style="position:absolute;left:-40px;bottom:-60px;width:110px;height:110px;border-radius:50%;background:linear-gradient(180deg,#ff2bd6,#ff9a5c);animation:cxFloatB 8s ease-in-out infinite;translate:calc(var(--px,0) * -36px) calc(var(--py,0) * -26px);transition:translate .8s cubic-bezier(.2,.7,.2,1)"></div>
+<span style="position:relative;font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#fff">{{ t.gwKicker }}</span>
+<h1 style="position:relative;margin:0;font-size:32px;line-height:1.05;font-weight:800;background:linear-gradient(90deg,#ffd02e,#ff9f45);-webkit-background-clip:text;background-clip:text;color:transparent">{{ t.gwTitle }}</h1>
+</div>
+<div style="position:relative;overflow:hidden;background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:20px;display:flex;flex-direction:column;gap:14px">
+<div style="position:absolute;right:-30px;top:-30px;width:90px;height:90px;border-radius:50%;background:linear-gradient(180deg,#38c08f,#0aa0f5);animation:cxFloatA 9s ease-in-out infinite"></div>
+<span style="position:relative;align-self:flex-start;font-size:12px;font-weight:800;padding:5px 10px;border-radius:999px;background:var(--ok-bg);color:var(--ok-ink)">{{ t.utAll }}</span>
+<h2 style="position:relative;margin:0;font-size:24px;font-weight:800;padding-right:50px">{{ t.utTitle }}</h2>
+<div style="display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px">
+<sc-for list="{{ utSteps }}" as="st" hint-placeholder-count="7">
+<button onClick="{{ st.go }}" aria-label="{{ st.title }}" style-active="transform:scale(.9)" style="aspect-ratio:1;max-height:48px;border-radius:50%;border:1.5px solid {{ st.border }};background:{{ st.bg }};color:{{ st.ink }};font:800 15px 'Figtree',sans-serif;cursor:pointer;transition:transform .2s,background .25s">{{ st.n }}</button>
+</sc-for>
+</div>
+<div style="height:4px;border-radius:9px;background:var(--chip);overflow:hidden"><div style="height:100%;background:linear-gradient(90deg,#38c08f,#0aa0f5);width:{{ utPct }};transition:width .35s"></div></div>
+<div style="display:flex;flex-direction:column;gap:10px;animation:cxUp .35s both" key="{{ utKey }}">
+<span style="font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--brand)">{{ utLabel }}</span>
+<h3 style="margin:0;font-size:21px;font-weight:800">{{ ut.title }}</h3>
+<p style="margin:0;font-size:16px;line-height:1.5;text-wrap:pretty">{{ ut.intro }}</p>
+<sc-for list="{{ ut.points }}" as="p" hint-placeholder-count="3">
+<div style="display:grid;grid-template-columns:10px minmax(0,1fr);gap:10px;align-items:start"><span style="width:8px;height:8px;margin-top:8px;border-radius:50%;background:linear-gradient(135deg,#ffd02e,#ff9f45)"></span><span style="font-size:15px;line-height:1.5;text-wrap:pretty">{{ p }}</span></div>
+</sc-for>
+<sc-if value="{{ ut.hasVid }}" hint-placeholder-val="{{ false }}">
+<div style="position:relative;aspect-ratio:16 / 9;border-radius:14px;overflow:hidden;background:#04263a">
+<sc-if value="{{ ut.v.playing }}" hint-placeholder-val="{{ false }}"><iframe src="{{ ut.v.embed }}" title="{{ ut.v.title }}" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen="{{ true }}" referrerPolicy="strict-origin-when-cross-origin" style="position:absolute;inset:0;width:100%;height:100%;border:0"></iframe></sc-if>
+<sc-if value="{{ ut.v.idle }}" hint-placeholder-val="{{ false }}"><button onClick="{{ ut.v.play }}" style="position:absolute;inset:0;border:0;padding:0;cursor:pointer;background:#04263a"><span style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.85;background:#04263a center / cover no-repeat;background-image:url({{ ut.v.thumb }})"></span><span style="position:absolute;left:50%;top:50%;width:52px;height:52px;margin:-26px 0 0 -26px;border-radius:50%;background:linear-gradient(180deg,#ffd02e,#ff9f45);display:grid;place-items:center"><span style="width:0;height:0;margin-left:4px;border-left:15px solid #04263a;border-top:9px solid transparent;border-bottom:9px solid transparent"></span></span><span style="position:absolute;left:12px;right:12px;bottom:10px;text-align:left;color:#fff;font:700 13px/1.3 'Figtree',sans-serif">{{ ut.v.title }} · NN/g</span></button></sc-if>
+</div>
+</sc-if>
+<sc-if value="{{ ut.hasLinks }}" hint-placeholder-val="{{ false }}">
+<div style="border:1px solid var(--line);border-radius:14px;overflow:hidden">
+<button onClick="{{ toggleUtLinks }}" style="width:100%;display:flex;justify-content:space-between;align-items:center;padding:12px 14px;border:0;background:var(--chip);color:var(--chip-ink);font:800 13px 'Figtree',sans-serif;cursor:pointer;text-align:left">{{ ut.linksLabel }}</button>
+<sc-if value="{{ ut.linksOpen }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;flex-direction:column;animation:cxUp .25s both">
+<sc-for list="{{ ut.links }}" as="lk" hint-placeholder-count="2">
+<a href="{{ lk.url }}" target="_blank" rel="noopener" style-hover="background:var(--chip)" style="display:flex;justify-content:space-between;gap:10px;padding:11px 14px;border-top:1px solid var(--line);color:var(--ink);text-decoration:none;font-size:14px;line-height:1.4;font-weight:600"><span>{{ lk.label }}</span><span style="color:var(--brand)">↗</span></a>
+</sc-for>
+</div>
+</sc-if>
+</div>
+</sc-if>
+</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+<button onClick="{{ utPrev }}" style-active="transform:scale(.96)" style="height:46px;border-radius:12px;border:1px solid var(--line);background:var(--surface);color:var(--ink);font:700 14px 'Figtree',sans-serif;cursor:pointer">← {{ t.prev }}</button>
+<button onClick="{{ utNext }}" style-active="transform:scale(.96)" style="height:46px;border-radius:12px;border:0;background:var(--brand);color:var(--brand-ink);font:700 14px 'Figtree',sans-serif;cursor:pointer">{{ t.next }} →</button>
+</div>
+<button onClick="{{ openUsability }}" style="align-self:flex-start;border:0;background:transparent;padding:0;color:var(--brand);font:700 14px 'Figtree',sans-serif;cursor:pointer">{{ t.openCard }} →</button>
+</div>
+<div style="position:relative;overflow:hidden;background:var(--surface);border:1.5px solid var(--brand);border-radius:20px;padding:20px;display:flex;flex-direction:column;gap:14px">
+<div style="position:absolute;right:-30px;top:-30px;width:90px;height:90px;border-radius:50%;background:linear-gradient(180deg,#ff2bd6,#ff9a5c);animation:cxFloatB 8s ease-in-out infinite"></div>
+<span style="position:relative;align-self:flex-start;font-size:12px;font-weight:800;padding:5px 10px;border-radius:999px;background:var(--warn-bg);color:var(--warn-ink)">⚠ {{ t.huntOnly }}</span>
+<h2 style="position:relative;margin:0;font-size:24px;font-weight:800;padding-right:50px">{{ t.huntTitle }}</h2>
+<p style="margin:0;font-size:17px;line-height:1.45;font-weight:700">Go outside and find for each heuristic one good and one bad exemple.</p>
+<span style="font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)">Keep in mind:</span>
+<sc-for list="{{ huntRules }}" as="p" hint-placeholder-count="4">
+<div style="display:grid;grid-template-columns:28px minmax(0,1fr);gap:10px;align-items:start">
+<span style="width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#ffd02e,#ff9f45);color:#04263a;display:grid;place-items:center;font-size:13px;font-weight:800">{{ p.n }}</span>
+<span style="font-size:16px;line-height:1.45;padding-top:3px;text-wrap:pretty">{{ p.text }}</span>
+</div>
+</sc-for>
+<button onClick="{{ openHeurTab }}" style-active="transform:scale(.96)" style="align-self:flex-start;height:44px;padding:0 16px;border-radius:12px;border:0;background:var(--brand);color:var(--brand-ink);font:700 14px 'Figtree',sans-serif;cursor:pointer">{{ t.huntCta }} →</button>
+</div>
+<div style="position:relative;overflow:hidden;background:var(--surface);border:1.5px solid var(--brand);border-radius:20px;padding:20px;display:flex;flex-direction:column;gap:14px">
+<div style="position:absolute;right:-30px;top:-30px;width:90px;height:90px;border-radius:50%;background:linear-gradient(180deg,#ffd02e,#ff9f45);animation:cxFloatC 9s ease-in-out infinite"></div>
+<span style="position:relative;align-self:flex-start;font-size:12px;font-weight:800;padding:5px 10px;border-radius:999px;background:var(--warn-bg);color:var(--warn-ink)">⚠ {{ t.huntOnly }}</span>
+<h2 style="position:relative;margin:0;font-size:24px;font-weight:800;padding-right:50px">{{ t.csTitle }}</h2>
+<sc-for list="{{ csSteps }}" as="p" hint-placeholder-count="7">
+<div style="display:grid;grid-template-columns:28px minmax(0,1fr);gap:10px;align-items:start">
+<span style="font-size:13px;font-weight:800;color:var(--brand);font-variant-numeric:tabular-nums;letter-spacing:.04em;padding-top:5px;border-top:2px solid var(--brand)">{{ p.n }}</span>
+<span style="font-size:15px;line-height:1.5;padding-top:3px;text-wrap:pretty">{{ p.text }}</span>
+</div>
+</sc-for>
+<button onClick="{{ openCardsort }}" style="align-self:flex-start;border:0;background:transparent;padding:0;color:var(--brand);font:700 14px 'Figtree',sans-serif;cursor:pointer">{{ t.openCard }} →</button>
+</div>
+</section>
+</sc-if>
+
+<sc-if value="{{ isQuiz }}" hint-placeholder-val="{{ false }}">
+<section style="max-width:680px;margin:0 auto;padding:24px 16px;display:flex;flex-direction:column;gap:18px;animation:cxUp .45s cubic-bezier(.2,.7,.2,1) both">
+<div style="display:grid;grid-template-columns:1fr 1fr;background:var(--chip);border-radius:16px;padding:4px;gap:4px">
+<sc-for list="{{ quizModes }}" as="qm" hint-placeholder-count="2">
+<button onClick="{{ qm.go }}" style-active="transform:scale(.97)" style="min-height:52px;padding:8px 10px;border-radius:12px;border:0;background:{{ qm.bg }};color:{{ qm.ink }};box-shadow:{{ qm.shadow }};font:800 14px/1.2 'Figtree',sans-serif;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;transition:background .25s,box-shadow .25s,transform .15s"><span>{{ qm.label }}</span><span style="font-size:12px;font-weight:600;opacity:.8">{{ qm.sub }}</span></button>
+</sc-for>
+</div>
+<sc-if value="{{ isApply }}" hint-placeholder-val="{{ true }}">
+<sc-if value="{{ quizRunning }}" hint-placeholder-val="{{ true }}">
+<div style="display:flex;flex-direction:column;gap:8px">
+<div style="display:flex;justify-content:space-between;font-size:14px;font-weight:700;color:var(--muted);font-variant-numeric:tabular-nums"><span>{{ quizCounter }}</span><span>{{ quizScoreLabel }}</span></div>
+<div style="height:6px;border-radius:99px;background:var(--chip);overflow:hidden"><div style="height:100%;background:var(--brand);border-radius:99px;width:{{ quizPct }};transition:width .3s"></div></div>
+</div>
+<h2 style="margin:0;font-size:24px;line-height:1.25;font-weight:800;text-wrap:pretty">{{ quizQ }}</h2>
+<div style="display:flex;flex-direction:column;gap:10px">
+<sc-for list="{{ quizOpts }}" as="o" hint-placeholder-count="3">
+<button onClick="{{ o.pick }}" style-active="transform:scale(.96)" style="transition:transform .15s ease,background .2s,border-color .2s,color .2s;text-align:left;min-height:56px;padding:14px 16px;border-radius:14px;font:600 16px/1.35 'Figtree',sans-serif;cursor:pointer;border:1.5px solid {{ o.border }};background:{{ o.bg }};color:{{ o.ink }}">{{ o.label }}</button>
+</sc-for>
+</div>
+<sc-if value="{{ answered }}" hint-placeholder-val="{{ false }}">
+<div style="background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:6px">
+<span style="font-size:14px;font-weight:800;color:{{ verdictColor }}">{{ verdict }}</span>
+<p style="margin:0;font-size:15px;line-height:1.5;text-wrap:pretty">{{ quizWhy }}</p>
+</div>
+<button onClick="{{ nextQ }}" style-active="transform:scale(.96)" style="transition:transform .15s ease,background .2s,border-color .2s,color .2s;height:52px;border-radius:14px;border:0;background:var(--brand);color:var(--brand-ink);font:700 16px 'Figtree',sans-serif;cursor:pointer">{{ nextQLabel }}</button>
+</sc-if>
+</sc-if>
+<sc-if value="{{ quizDone }}" hint-placeholder-val="{{ false }}">
+<div style="border-radius:24px;background:#0077b8;color:#fff;padding:32px 22px;position:relative;overflow:hidden;display:flex;flex-direction:column;gap:10px">
+<div style="position:absolute;right:-60px;top:-80px;width:190px;height:190px;border-radius:50%;background:linear-gradient(180deg,#38c08f,#0aa0f5);animation:cxFloatA 11s ease-in-out infinite;translate:calc(var(--px,0) * 28px) calc(var(--py,0) * 22px);transition:translate .8s cubic-bezier(.2,.7,.2,1)"></div>
+<span style="position:relative;font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase">{{ t.quizResult }}</span>
+<span style="position:relative;font-size:64px;line-height:1;font-weight:800;background:linear-gradient(90deg,#ffd02e,#ff9f45);-webkit-background-clip:text;background-clip:text;color:transparent">{{ finalScore }}</span>
+<p style="position:relative;margin:0;font-size:16px;line-height:1.45">{{ finalMsg }}</p>
+<span style="position:relative;font-size:14px;font-weight:600;opacity:.9">{{ bestLabel }}</span>
+</div>
+<button onClick="{{ restartQuiz }}" style-active="transform:scale(.96)" style="transition:transform .15s ease,background .2s,border-color .2s,color .2s;height:52px;border-radius:14px;border:0;background:var(--brand);color:var(--brand-ink);font:700 16px 'Figtree',sans-serif;cursor:pointer">{{ t.restart }}</button>
+</sc-if>
+</sc-if>
+<sc-if value="{{ isMap }}" hint-placeholder-val="{{ false }}">
+<sc-if value="{{ zRunning }}" hint-placeholder-val="{{ true }}">
+<div style="display:flex;flex-direction:column;gap:8px">
+<div style="display:flex;justify-content:space-between;font-size:14px;font-weight:700;color:var(--muted);font-variant-numeric:tabular-nums"><span>{{ zCounter }}</span><span>{{ zScoreLabel }}</span></div>
+<div style="height:6px;border-radius:99px;background:var(--chip);overflow:hidden"><div style="height:100%;background:linear-gradient(90deg,#38c08f,#0aa0f5);border-radius:99px;width:{{ zPct }};transition:width .3s"></div></div>
+</div>
+<div style="border-radius:20px;background:#0077b8;color:#fff;padding:20px;position:relative;overflow:hidden;display:flex;flex-direction:column;gap:6px">
+<div style="position:absolute;right:-40px;top:-50px;width:130px;height:130px;border-radius:50%;background:linear-gradient(180deg,#ff2bd6,#ff9a5c);animation:cxFloatB 8s ease-in-out infinite"></div>
+<span style="position:relative;font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase">{{ t.zAsk }}</span>
+<span style="position:relative;font-size:28px;line-height:1.1;font-weight:800;background:linear-gradient(90deg,#ffd02e,#ff9f45);-webkit-background-clip:text;background-clip:text;color:transparent;animation:cxPop .45s cubic-bezier(.3,1.6,.5,1) both" key="{{ zKey }}">{{ zName }}</span>
+</div>
+<div style="display:grid;grid-template-columns:22px minmax(0,1fr) minmax(0,1fr);grid-template-rows:auto 1fr 1fr;gap:6px">
+<span></span>
+<span style="text-align:center;font-size:12px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)">{{ t.zQual }}</span>
+<span style="text-align:center;font-size:12px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)">{{ t.zQuant }}</span>
+<span style="writing-mode:vertical-rl;transform:rotate(180deg);text-align:center;font-size:12px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)">{{ t.zAtt }}</span>
+<sc-for list="{{ zQuads }}" as="zq" hint-placeholder-count="2">
+<button onClick="{{ zq.pick }}" style-hover="border-color:var(--brand)" style-active="transform:scale(.97)" style="grid-column:{{ zq.col }};grid-row:{{ zq.row }};min-height:118px;padding:10px;border-radius:16px;border:2px solid {{ zq.border }};background:{{ zq.bg }};color:var(--ink);cursor:pointer;display:flex;flex-direction:column;align-items:flex-start;gap:6px;text-align:left;transition:background .25s,border-color .25s,transform .15s">
+<span style="font-size:11px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:{{ zq.labelInk }}">{{ zq.label }}</span>
+<span style="display:flex;flex-wrap:wrap;gap:4px">
+<sc-for list="{{ zq.chips }}" as="c" hint-placeholder-count="0"><span style="font-size:11px;font-weight:700;padding:3px 7px;border-radius:999px;background:var(--surface);border:1px solid var(--line);color:var(--ink);animation:cxPop .35s cubic-bezier(.3,1.6,.5,1) both">{{ c }}</span></sc-for>
+</span>
+</button>
+</sc-for>
+<span style="grid-column:1;grid-row:3;writing-mode:vertical-rl;transform:rotate(180deg);text-align:center;font-size:12px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)">{{ t.zBeh }}</span>
+</div>
+<sc-if value="{{ zAnswered }}" hint-placeholder-val="{{ false }}">
+<div style="background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:6px;animation:cxUp .3s both">
+<span style="font-size:14px;font-weight:800;color:{{ zVerdictColor }}">{{ zVerdict }}</span>
+<p style="margin:0;font-size:15px;line-height:1.5;text-wrap:pretty">{{ zWhy }}</p>
+<button onClick="{{ zOpen }}" style="align-self:flex-start;border:0;background:transparent;padding:0;color:var(--brand);font:700 14px 'Figtree',sans-serif;cursor:pointer">{{ t.openCard }} →</button>
+</div>
+<button onClick="{{ zNext }}" style-active="transform:scale(.97)" style="height:52px;border-radius:14px;border:0;background:var(--brand);color:var(--brand-ink);font:700 16px 'Figtree',sans-serif;cursor:pointer">{{ zNextLabel }}</button>
+</sc-if>
+</sc-if>
+<sc-if value="{{ zDone }}" hint-placeholder-val="{{ false }}">
+<div style="border-radius:24px;background:#0077b8;color:#fff;padding:32px 22px;position:relative;overflow:hidden;display:flex;flex-direction:column;gap:10px">
+<div style="position:absolute;right:-60px;top:-80px;width:190px;height:190px;border-radius:50%;background:linear-gradient(180deg,#38c08f,#0aa0f5);animation:cxFloatA 11s ease-in-out infinite"></div>
+<span style="position:relative;font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase">{{ t.quizResult }}</span>
+<span style="position:relative;font-size:64px;line-height:1;font-weight:800;background:linear-gradient(90deg,#ffd02e,#ff9f45);-webkit-background-clip:text;background-clip:text;color:transparent">{{ zFinal }}</span>
+<p style="position:relative;margin:0;font-size:16px;line-height:1.45">{{ zFinalMsg }}</p>
+</div>
+<button onClick="{{ zRestart }}" style="height:52px;border-radius:14px;border:0;background:var(--brand);color:var(--brand-ink);font:700 16px 'Figtree',sans-serif;cursor:pointer">{{ t.restart }}</button>
+</sc-if>
+</sc-if>
+</section>
+</sc-if>
+
+<sc-if value="{{ isRef }}" hint-placeholder-val="{{ false }}">
+<section style="max-width:680px;margin:0 auto;padding:24px 16px;display:flex;flex-direction:column;gap:28px;animation:cxUp .45s cubic-bezier(.2,.7,.2,1) both">
+<div style="display:flex;flex-direction:column;gap:12px">
+<h2 style="margin:0;font-size:24px;font-weight:800">{{ t.glossTitle }}</h2>
+<div style="background:var(--surface);border:1px solid var(--line);border-radius:18px;overflow:hidden">
+<sc-for list="{{ glossary }}" as="g" hint-placeholder-count="6">
+<div style="padding:14px 18px;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:3px">
+<span style="font-size:16px;font-weight:800;color:var(--brand)">{{ g.term }}</span>
+<span style="font-size:15px;line-height:1.45;text-wrap:pretty">{{ g.def }}</span>
+</div>
+</sc-for>
+</div>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px">
+<h2 style="margin:0;font-size:24px;font-weight:800">{{ t.videosTitle }}</h2>
+<p style="margin:0;font-size:15px;line-height:1.45;color:var(--muted)">{{ t.videosText }}</p>
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px">
+<sc-for list="{{ allVideos }}" as="v" hint-placeholder-count="4">
+<div style="background:var(--surface);border:1px solid var(--line);border-radius:16px;overflow:hidden;display:flex;flex-direction:column">
+<div style="position:relative;aspect-ratio:16 / 9;background:#04263a">
+<sc-if value="{{ v.playing }}" hint-placeholder-val="{{ false }}">
+<iframe src="{{ v.embed }}" title="{{ v.title }}" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen="{{ true }}" referrerPolicy="strict-origin-when-cross-origin" style="position:absolute;inset:0;width:100%;height:100%;border:0"></iframe>
+</sc-if>
+<sc-if value="{{ v.idle }}" hint-placeholder-val="{{ false }}">
+<button onClick="{{ v.play }}" aria-label="{{ t.play }}" style="position:absolute;inset:0;border:0;padding:0;cursor:pointer;background:#04263a">
+<span style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.85;background:#04263a center / cover no-repeat;background-image:url({{ v.thumb }})"></span>
+<span style="position:absolute;left:50%;top:50%;width:48px;height:48px;margin:-24px 0 0 -24px;border-radius:50%;background:linear-gradient(180deg,#ffd02e,#ff9f45);display:grid;place-items:center"><span style="width:0;height:0;margin-left:3px;border-left:14px solid #04263a;border-top:9px solid transparent;border-bottom:9px solid transparent"></span></span>
+</button>
+</sc-if>
+</div>
+<div style="padding:12px 14px;display:flex;flex-direction:column;gap:3px">
+<span style="font-size:15px;font-weight:800;line-height:1.3">{{ v.title }}</span>
+<div style="display:flex;flex-wrap:wrap;gap:6px 14px"><a href="{{ v.url }}" target="_blank" rel="noopener" style="font-size:13px;font-weight:600;color:var(--muted);text-decoration:none">NN/g · {{ v.dur }} ↗</a><a href="{{ v.yturl }}" target="_blank" rel="noopener" style="font-size:13px;font-weight:600;color:var(--brand);text-decoration:none">{{ t.onYoutube }} ↗</a></div>
+</div>
+</div>
+</sc-for>
+</div>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px">
+<h2 style="margin:0;font-size:24px;font-weight:800">{{ t.resTitle }}</h2>
+<sc-for list="{{ resources }}" as="r" hint-placeholder-count="1">
+<a href="{{ r.url }}" target="_blank" rel="noopener" style="text-decoration:none;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px 18px;display:flex;align-items:center;justify-content:space-between;gap:12px">
+<span style="display:flex;flex-direction:column;gap:3px"><span style="font-size:16px;font-weight:800">{{ r.name }}</span><span style="font-size:14px;line-height:1.4;color:var(--muted)">{{ r.desc }}</span></span>
+<span style="font-size:20px;color:var(--brand)">↗</span>
+</a>
+</sc-for>
+</div>
+</section>
+</sc-if>
+
+<sc-if value="{{ isHeur }}" hint-placeholder-val="{{ false }}">
+<section style="max-width:760px;margin:0 auto;padding:16px 16px 24px;display:flex;flex-direction:column;gap:16px;animation:cxUp .45s cubic-bezier(.2,.7,.2,1) both">
+<div style="border-radius:24px;background:#0077b8;color:#fff;padding:26px 22px 22px;position:relative;overflow:hidden;display:flex;flex-direction:column;gap:10px">
+<div style="position:absolute;right:-70px;top:-90px;width:200px;height:200px;border-radius:50%;background:linear-gradient(180deg,#38c08f,#0aa0f5);animation:cxFloatA 11s ease-in-out infinite;translate:calc(var(--px,0) * 28px) calc(var(--py,0) * 22px);transition:translate .8s"></div>
+<div style="position:absolute;right:40px;bottom:-70px;width:110px;height:110px;border-radius:50%;background:linear-gradient(180deg,#ff2bd6,#ff9a5c);animation:cxFloatB 8s ease-in-out infinite;translate:calc(var(--px,0) * -36px) calc(var(--py,0) * -26px);transition:translate .8s"></div>
+<span style="position:relative;font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase">Jakob Nielsen · 1994</span>
+<h1 style="position:relative;margin:0;font-size:32px;line-height:1.05;font-weight:800;background:linear-gradient(90deg,#ffd02e,#ff9f45);-webkit-background-clip:text;background-clip:text;color:transparent;max-width:440px;text-wrap:balance">{{ t.hTitle }}</h1>
+<p style="position:relative;margin:0;font-size:16px;line-height:1.45;max-width:460px;text-wrap:pretty">{{ t.hText }}</p>
+<div style="position:relative;display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-top:4px">
+<button onClick="{{ shuffleH }}" style-active="transform:scale(.94) rotate(-4deg)" style="height:42px;padding:0 16px;border-radius:999px;border:0;background:#ffd02e;color:#04263a;font:800 14px 'Figtree',sans-serif;cursor:pointer;transition:transform .2s">⟳ {{ t.hShuffle }}</button>
+<span style="font-size:13px;font-weight:700">{{ hSeenLabel }}</span>
+</div>
+</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px">
+<sc-for list="{{ heuristics }}" as="h" hint-placeholder-count="10">
+<button onClick="{{ h.open }}" style-hover="transform:translateY(-3px) rotate(-1deg);border-color:var(--brand)" style-active="transform:scale(.96)" style="position:relative;overflow:hidden;text-align:left;min-height:132px;padding:14px;border-radius:18px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;display:flex;flex-direction:column;justify-content:space-between;gap:10px;transition:transform .25s cubic-bezier(.3,1.4,.5,1),border-color .2s;animation:cxUp .5s cubic-bezier(.2,.7,.2,1) {{ h.delay }} both">
+<span style="position:absolute;right:-22px;top:-22px;width:64px;height:64px;border-radius:50%;background:{{ h.grad }};opacity:.9;animation:cxFloatC 9s ease-in-out infinite"></span>
+<span style="position:relative;font-size:36px;line-height:1;font-weight:800;background:linear-gradient(90deg,#0077b8,#0aa0f5);-webkit-background-clip:text;background-clip:text;color:transparent">{{ h.num }}</span>
+<span style="position:relative;font:800 15px/1.25 'Figtree',sans-serif;text-wrap:pretty">{{ h.name }}</span>
+<sc-if value="{{ h.seen }}" hint-placeholder-val="{{ false }}"><span style="position:absolute;right:10px;bottom:10px;width:22px;height:22px;border-radius:50%;background:var(--ok-ink);color:var(--ok-bg);display:grid;place-items:center;font-size:12px;font-weight:800;animation:cxPop .4s cubic-bezier(.3,1.6,.5,1) both">✓</span></sc-if>
+</button>
+</sc-for>
+</div>
+<p style="margin:0;font-size:13px;color:var(--muted)">{{ t.hSource }} <a href="https://www.nngroup.com/articles/ten-usability-heuristics/" target="_blank" rel="noopener" style="color:var(--brand);font-weight:700">nngroup.com ↗</a></p>
+</section>
+<sc-if value="{{ hOpen }}" hint-placeholder-val="{{ false }}">
+<div onClick="{{ closeH }}" style="position:fixed;inset:0;z-index:40;background:rgba(4,38,58,.55);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);animation:cxFade .25s both"></div>
+<div role="dialog" style="position:fixed;left:0;right:0;bottom:0;z-index:41;max-height:88vh;overflow-y:auto;background:var(--bg);border-radius:26px 26px 0 0;animation:cxSheet .45s cubic-bezier(.2,.9,.2,1) both;padding-bottom:env(safe-area-inset-bottom)">
+<div style="max-width:680px;margin:0 auto;padding:10px 18px 24px;display:flex;flex-direction:column;gap:16px">
+<div style="align-self:center;width:44px;height:5px;border-radius:9px;background:var(--line)"></div>
+<div style="border-radius:22px;background:#0077b8;color:#fff;padding:22px 20px;position:relative;overflow:hidden;display:flex;flex-direction:column;gap:8px">
+<div style="position:absolute;right:-50px;top:-60px;width:150px;height:150px;border-radius:50%;background:{{ hc.grad }};animation:cxFloatA 9s ease-in-out infinite"></div>
+<span style="position:relative;font-size:56px;line-height:1;font-weight:800;background:linear-gradient(90deg,#ffd02e,#ff9f45);-webkit-background-clip:text;background-clip:text;color:transparent;animation:cxPop .5s cubic-bezier(.3,1.6,.5,1) both">{{ hc.num }}</span>
+<h2 style="position:relative;margin:0;font-size:24px;line-height:1.15;font-weight:800;max-width:460px">{{ hc.name }}</h2>
+</div>
+<p style="margin:0;font-size:18px;line-height:1.45;font-weight:600;text-wrap:pretty">{{ hc.idea }}</p>
+<div style="background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:4px">
+<span style="font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--brand)">{{ t.hExample }}</span>
+<span style="font-size:15px;line-height:1.5;text-wrap:pretty">{{ hc.ex }}</span>
+</div>
+<div style="background:var(--chip);color:var(--chip-ink);border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:4px">
+<span style="font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase">{{ t.hAsk }}</span>
+<span style="font-size:15px;line-height:1.5;font-weight:600;text-wrap:pretty">{{ hc.ask }}</span>
+</div>
+<sc-if value="{{ hc.hasVid }}" hint-placeholder-val="{{ false }}">
+<div style="position:relative;aspect-ratio:16 / 9;border-radius:14px;overflow:hidden;background:#04263a">
+<sc-if value="{{ hc.v.playing }}" hint-placeholder-val="{{ false }}"><iframe src="{{ hc.v.embed }}" title="{{ hc.v.title }}" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen="{{ true }}" referrerPolicy="strict-origin-when-cross-origin" style="position:absolute;inset:0;width:100%;height:100%;border:0"></iframe></sc-if>
+<sc-if value="{{ hc.v.idle }}" hint-placeholder-val="{{ false }}"><button onClick="{{ hc.v.play }}" aria-label="{{ t.play }}" style="position:absolute;inset:0;border:0;padding:0;cursor:pointer;background:#04263a"><span style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.85;background:#04263a center / cover no-repeat;background-image:url({{ hc.v.thumb }})"></span><span style="position:absolute;left:50%;top:50%;width:56px;height:56px;margin:-28px 0 0 -28px;border-radius:50%;background:linear-gradient(180deg,#ffd02e,#ff9f45);display:grid;place-items:center"><span style="width:0;height:0;margin-left:4px;border-left:16px solid #04263a;border-top:10px solid transparent;border-bottom:10px solid transparent"></span></span></button></sc-if>
+</div>
+</sc-if>
+<div style="display:flex;flex-wrap:wrap;gap:6px 14px"><a href="{{ hc.url }}" target="_blank" rel="noopener" style="font-size:13px;font-weight:700;color:var(--brand);text-decoration:none">{{ t.hVideoLink }} ↗</a><sc-if value="{{ hc.hasVid }}" hint-placeholder-val="{{ false }}"><a href="{{ hc.v.yturl }}" target="_blank" rel="noopener" style="font-size:13px;font-weight:600;color:var(--muted);text-decoration:none">{{ t.onYoutube }} ↗</a></sc-if></div>
+<div style="display:grid;grid-template-columns:1fr auto 1fr;gap:8px;align-items:center">
+<button onClick="{{ prevH }}" style-active="transform:scale(.95)" style="height:48px;border-radius:14px;border:1px solid var(--line);background:var(--surface);color:var(--ink);font:700 15px 'Figtree',sans-serif;cursor:pointer">← {{ t.prev }}</button>
+<button onClick="{{ closeH }}" aria-label="Close" style-active="transform:scale(.9)" style="width:48px;height:48px;border-radius:50%;border:0;background:var(--chip);color:var(--chip-ink);font:800 18px 'Figtree',sans-serif;cursor:pointer">✕</button>
+<button onClick="{{ nextH }}" style-active="transform:scale(.95)" style="height:48px;border-radius:14px;border:0;background:var(--brand);color:var(--brand-ink);font:700 15px 'Figtree',sans-serif;cursor:pointer">{{ t.next }} →</button>
+</div>
+</div>
+</div>
+</sc-if>
+</sc-if>
+
+</main>
+
+<nav style="position:fixed;left:0;right:0;bottom:0;z-index:30;background:var(--nav);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom)">
+<div style="max-width:680px;margin:0 auto;display:grid;grid-template-columns:repeat(6,minmax(0,1fr))">
+<sc-for list="{{ tabs }}" as="tb" hint-placeholder-count="5">
+<button onClick="{{ tb.go }}" style-active="transform:scale(.96)" style="transition:transform .15s ease,background .2s,border-color .2s,color .2s;height:60px;border:0;background:transparent;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;font:700 12px 'Figtree',sans-serif;color:{{ tb.ink }}">
+<span style="width:{{ tb.dot }};height:4px;border-radius:99px;background:{{ tb.ink }};transition:width .2s"></span>
+<span style="max-width:100%;padding:0 2px;font-size:11px;letter-spacing:-.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ tb.label }}</span>
+</button>
+</sc-for>
+</div>
+</nav>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;startLang&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;en&quot;,&quot;fr&quot;],&quot;default&quot;:&quot;en&quot;,&quot;tsType&quot;:&quot;'en'|'fr'&quot;},&quot;startDark&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;},&quot;linkedinUrl&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;https://www.linkedin.com/in/emiliennizon/&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+const VIDEOS = {
+ interviews:{yt:'jy-QGuWE7PQ', title:'The 3 Types of User Interviews', dur:'3 min', url:'https://www.nngroup.com/videos/3-types-user-interviews/'},
+ nps:{yt:'0wdTakjw56U', title:'Net Promoter Score in User Experience', dur:'4 min', url:'https://www.nngroup.com/videos/nps-ux/'},
+ diary:{yt:'fCx87YVbpLs', title:'Diary Studies', dur:'2 min', url:'https://www.nngroup.com/videos/diary-studies/'},
+ focus:{yt:'e9nZRMN49J0', title:'Focus Groups 101', dur:'4 min', url:'https://www.nngroup.com/videos/focus-groups/'},
+ usability:{yt:'n8MnoJyl3W4', title:'Usability Testing 101', dur:'2 min', url:'https://www.nngroup.com/videos/usability-testing-101/'},
+ analysis:{yt:'LCQ0YMVu46E', title:'Analyzing Qualitative User Data in a Spreadsheet', dur:'4 min', url:'https://www.nngroup.com/videos/analyzing-qualitative-data-spreadsheet/'}
+};
+const VIDEO_ORDER = ['interviews','focus','diary','usability','nps','analysis'];
+const NNG = [
+ 'https://www.nngroup.com/articles/which-ux-research-methods/ (When to Use Which UX Research Methods)',
+ 'https://www.nngroup.com/articles/user-interviews/ (User Interviews 101)',
+ 'https://www.nngroup.com/videos/3-types-user-interviews/ (video: 3 types of user interviews)',
+ 'https://www.nngroup.com/videos/probing-user-interviews/ (video: probing in user interviews)',
+ 'https://www.nngroup.com/videos/interview-mistakes-to-avoid/ (video: 5 interview mistakes)',
+ 'https://www.nngroup.com/videos/funnel-technique-interviews/ (video: funnel technique)',
+ 'https://www.nngroup.com/articles/nps-ux/ (NPS and UX)',
+ 'https://www.nngroup.com/videos/nps-ux/ (video: NPS in UX)',
+ 'https://www.nngroup.com/videos/downsides-net-promoter-score/ (video: downsides of NPS)',
+ 'https://www.nngroup.com/articles/measuring-perceived-usability/ (Beyond the NPS: SUS, SEQ)',
+ 'https://www.nngroup.com/articles/diary-studies/ (Diary Studies)',
+ 'https://www.nngroup.com/videos/diary-studies/ (video: diary studies)',
+ 'https://www.nngroup.com/videos/5-steps-diary-studies/ (video: 5 steps for diary studies)',
+ 'https://www.nngroup.com/articles/better-diary-studies/ (6 tips for participant engagement in diary studies)',
+ 'https://www.nngroup.com/videos/field-studies-vs-diary-studies/ (video: field vs diary studies)',
+ 'https://www.nngroup.com/articles/focus-groups-definition/ (Focus Groups 101)',
+ 'https://www.nngroup.com/videos/focus-groups/ (video: focus groups 101)',
+ 'https://www.nngroup.com/articles/focus-groups/ (The Use and Misuse of Focus Groups)',
+ 'https://www.nngroup.com/topic/eyetracking/ (all eyetracking resources)',
+ 'https://www.nngroup.com/videos/eyetracking-task-scenarios/ (video: how task scenarios influence where people look)',
+ 'https://www.nngroup.com/videos/f-pattern-reading-digital-content/ (video: F-pattern)',
+ 'https://www.nngroup.com/videos/attention-leans-left-websites/ (video: attention leans left)',
+ 'https://www.nngroup.com/articles/usability-testing-101/ (Usability Testing 101)',
+ 'https://www.nngroup.com/videos/usability-testing-101/ (video: usability testing 101)',
+ 'https://www.nngroup.com/videos/checklist-planning-user-test/ (video: checklist for planning a user test)',
+ 'https://www.nngroup.com/videos/introducing-a-usability-test/ (video: introducing a usability test to participants)',
+ 'https://www.nngroup.com/videos/usability-testing-w-5-users-design-process/ (video: testing with 5 users)',
+ 'https://www.nngroup.com/articles/better-usability-tasks/ (Write better usability tasks)',
+ 'https://www.nngroup.com/videos/analyzing-qualitative-data-spreadsheet/ (video: analyzing qualitative data in a spreadsheet)',
+ 'https://www.nngroup.com/videos/thematic-analysis-qualitative-user-research-data/ (video: thematic analysis)',
+ 'https://www.nngroup.com/articles/thematic-analysis/ (Thematic analysis)',
+ 'https://www.nngroup.com/videos/frequency-in-qualitative-data/ (video: frequency is not importance in qualitative data)',
+ 'https://www.nngroup.com/videos/why-40-participants-quantitative-research/ (video: why 40 participants in quant research)',
+ 'https://www.nngroup.com/videos/convenience-sampling-avoid-bias/ (video: convenience sampling and bias)',
+ 'https://www.nngroup.com/articles/formative-vs-summative-evaluations/ (Formative vs summative evaluations)'
+];
+const HV = {1:'cTtc90jCULU',2:'0TAt9Pln51g',3:'MXuk-fdbr0A',4:'Ibndy9KLOSQ',5:'imS9s1DUY-I',6:'6glQPp6q4Jc'};
+const HURL = ['usability-heuristic-system-status','match-system-real-world','usability-heuristic-user-control-freedom','usability-heuristic-consistency-standards','usability-heuristic-error-prevention','recognition-vs-recall','flexibility-efficiency-use','aesthetic-and-minimalist-design','usability-heuristic-recognize-errors','help-and-documentation'];
+const HGRAD = ['linear-gradient(180deg,#38c08f,#0aa0f5)','linear-gradient(180deg,#ff2bd6,#ff9a5c)','linear-gradient(180deg,#ffd02e,#ff9f45)'];
+const HEUR = {
+ en:[['Visibility of system status','Always keep people informed about what is going on, with quick, appropriate feedback.','A progress bar while a file uploads, or a "Sent" tick under a message.','After I act, can I tell what just happened?'],
+ ['Match between the system and the real world','Speak the user\'s language and follow real-world conventions, in a natural, logical order.','A trash-can icon for deleting, dates written the way people in that country write them.','Would a newcomer understand every word and icon without a glossary?'],
+ ['User control and freedom','People make mistakes. Give them a clearly marked "emergency exit" and a way to undo.','"Undo send" in an email app, a visible Cancel button in a checkout.','If I click the wrong thing, can I get out easily?'],
+ ['Consistency and standards','Same words, same actions, same meaning. Follow the conventions people already know.','The logo in the top-left corner takes you back to the home page.','Does this behave like everything else I use?'],
+ ['Error prevention','Better than a good error message: design so the error can\'t happen, or ask for confirmation.','A booking calendar that greys out dates in the past.','What mistake is easy to make here, and does the design stop it?'],
+ ['Recognition rather than recall','Make options visible so people don\'t have to remember information from one step to another.','A search box showing your recent searches.','Am I forced to remember something the design could show me?'],
+ ['Flexibility and efficiency of use','Shortcuts for experts, without getting in the way of beginners.','Keyboard shortcuts like Ctrl+C, or saved addresses at checkout.','Can a frequent user go faster than a first-timer?'],
+ ['Aesthetic and minimalist design','Every extra element competes with what matters. Keep only what serves the user\'s goal.','A search engine home page with little more than a search field.','What could I remove without losing anything useful?'],
+ ['Help users recognize, diagnose, and recover from errors','Error messages in plain language that say what went wrong and how to fix it.','"Your password needs at least one number", shown right next to the field.','Does the message tell me what to do next?'],
+ ['Help and documentation','Ideally no help is needed. If it is, make it easy to find, focused on the task, with concrete steps.','A small "?" tooltip next to a complicated form field.','When I\'m stuck, is help right where I need it?']],
+ fr:[['Visibilité de l\'état du système','Toujours informer l\'utilisateur de ce qui se passe, avec un retour rapide et adapté.','Une barre de progression pendant l\'envoi d\'un fichier, ou un « Envoyé » sous un message.','Après mon action, est-ce que je sais ce qui vient de se passer ?'],
+ ['Correspondance entre le système et le monde réel','Parler la langue de l\'utilisateur et suivre les conventions du monde réel, dans un ordre naturel.','Une icône de corbeille pour supprimer, des dates écrites comme dans le pays de l\'utilisateur.','Un nouveau venu comprendrait-il chaque mot et chaque icône ?'],
+ ['Contrôle et liberté de l\'utilisateur','On se trompe tous. Prévoir une « sortie de secours » visible et la possibilité d\'annuler.','« Annuler l\'envoi » dans une messagerie, un bouton Annuler visible pendant un paiement.','Si je clique au mauvais endroit, puis-je facilement revenir en arrière ?'],
+ ['Cohérence et standards','Mêmes mots, mêmes actions, même sens. Suivre les conventions que les gens connaissent déjà.','Le logo en haut à gauche ramène à la page d\'accueil.','Est-ce que ça se comporte comme tout ce que j\'utilise déjà ?'],
+ ['Prévention des erreurs','Mieux qu\'un bon message d\'erreur : empêcher l\'erreur, ou demander une confirmation.','Un calendrier de réservation qui grise les dates passées.','Quelle erreur est facile à faire ici, et le design l\'empêche-t-il ?'],
+ ['Reconnaître plutôt que se souvenir','Rendre les options visibles pour ne pas obliger à mémoriser d\'une étape à l\'autre.','Un champ de recherche qui affiche vos recherches récentes.','Dois-je me souvenir de quelque chose que le design pourrait me montrer ?'],
+ ['Flexibilité et efficacité','Des raccourcis pour les experts, sans gêner les débutants.','Les raccourcis clavier comme Ctrl+C, ou les adresses enregistrées au paiement.','Un utilisateur régulier peut-il aller plus vite qu\'un débutant ?'],
+ ['Design esthétique et minimaliste','Chaque élément en trop fait concurrence à l\'essentiel. Garder seulement ce qui sert l\'objectif.','Une page d\'accueil de moteur de recherche avec presque uniquement le champ de recherche.','Que pourrais-je retirer sans rien perdre d\'utile ?'],
+ ['Aider à reconnaître, diagnostiquer et corriger les erreurs','Des messages d\'erreur clairs, sans code, qui disent ce qui ne va pas et comment corriger.','« Votre mot de passe doit contenir au moins un chiffre », affiché juste à côté du champ.','Le message me dit-il quoi faire ensuite ?'],
+ ['Aide et documentation','Idéalement, pas besoin d\'aide. Sinon, une aide facile à trouver, centrée sur la tâche, avec des étapes concrètes.','Une petite info-bulle « ? » à côté d\'un champ de formulaire compliqué.','Quand je bloque, l\'aide est-elle là où j\'en ai besoin ?']]
+};
+const DATES = {en:[['18 Sept','Heuristic workshop'],['19 Nov','Presentations'],['11 Jan','Final exam']], fr:[['18 sept.','Atelier heuristiques'],['19 nov.','Présentations'],['11 janv.','Examen final']]};
+const UT = [
+ ['Pick a website','Select a website (desktop) you will run your usability test on. It should be:',['Written in the language of the class: in French if the class is in French, in English if the class is in English, to avoid any language bias with the people who are going to test it','Not too famous: you are going to run a 5-second test, so the logo and the value proposition should be a mystery','Ideally a website you would like to work for (helpful during a job application or interview process!)'],[['Usability Testing 101','https://www.nngroup.com/articles/usability-testing-101/']]],
+ ['Find your hypothesis','Hypotheses are what you want to test on your website. It can be any public page, not only the homepage.',['Be as specific as possible: one icon they don\'t understand, one page they can\'t find, one wording they don\'t understand','Start with “I think my users can\'t find…” or “I think my users don\'t understand…”','Good: “I think my users don\'t understand my value proposition”, “I think my users can\'t find the basket icon”','Bad: “I think my users are lost on the website”, “I think my website does not have a chatbot”'],[['Checklist for planning a user test (video)','https://www.nngroup.com/videos/checklist-planning-user-test/']]],
+ ['Prepare your interview guide','Everything you will read during the test, in this order:',['① Small talk · 2 min · not prepared. Put the participant at ease.','② Introduction · 2 min. Thank them, explain that you test the website, not them, ask them to think aloud, and get consent to record.','③ Five-second test · 2 min. Show the page for 5 seconds, hide it, then ask what it was about, what stood out and the name of the site.','④ Core protocol · one block per hypothesis: a realistic situation → a task → 2 or 3 open questions → one SEQ (Single Ease Question, rated on a scale).','⑤ Wrap-up · 2 min. Overall impression, anything to add, thanks.','Pro tips: use Claude to write your guide, avoid closed questions, and use situations so users behave naturally.','To spice it up: turn the questions of one hypothesis into biased ones (leading, loaded, double-barreled).'],[['Write better usability tasks','https://www.nngroup.com/articles/better-usability-tasks/'],['Introducing a usability test to the participant (video)','https://www.nngroup.com/videos/introducing-a-usability-test/'],['SEQ and other post-task questions','https://www.nngroup.com/articles/measuring-perceived-usability/'],['Using the funnel technique (video)','https://www.nngroup.com/videos/funnel-technique-interviews/']]],
+ ['Prepare your notes','Structure your note-taking document before the tests.',['One question per line','One profile per column','SEQs on dedicated lines','Categorize your questions with colored lines','No need to write everything, but catch the most interesting quotes'],[]],
+ ['Run your tests','You are paired with the person who shares your letter on the Google Spreadsheet.',['As Researcher: create the meeting, invite the User, launch the recording, ask all the questions from your guide, stop the recording and close the call','Then swap: you become the User and wait for the invitation','On Teams, create an event in your calendar to be able to record','Researcher and User in two different rooms','Record everything (voice + face) and check the transcript works','About 15 min for 5 hypotheses, up to 25 min for 10'],[['Remote moderated usability tests: how to do them','https://www.nngroup.com/articles/moderated-remote-usability-test/']]],
+ ['Summarize your insights','Use a Rainbow Spreadsheet: one row per observation, one color per participant. Themes that come up for many participants stand out at a glance.',['List each observation or quote on its own row, grouped by hypothesis','Color the cells of each participant who showed it: the more colors on a row, the stronger the theme','For each hypothesis: confirmed or not?','Keep your best quotes, SEQ scores and video moments for the presentation'],[['Thematic analysis of qualitative data (video)','https://www.nngroup.com/videos/thematic-analysis-qualitative-user-research-data/'],['Frequency ≠ importance in qualitative data (video)','https://www.nngroup.com/videos/frequency-in-qualitative-data/']],'analysis'],
+ ['Present your insights','Use the 4 Vs.',['Verbatims: direct quotes, e.g. “I can\'t find where to click to customize the bags.”','Videos: clips of a user struggling with the interface','Values: combine feedback with metrics, e.g. “average SEQ score of 4”','Visualize: a TL;DR with 6–7 bullet points, 3 quotes and 2 video clips'],[]]
+];
+const CS = {en:['Find an FAQ online.','Write 5 categories taken from the FAQ on 5 post-its, one category per post-it.','Pick 5 questions per category and write them on post-its of another color: 25 in total.','Lay the category post-its on a table, shuffle the 25 question post-its and hand them to another student, who places each one in the category they think is right.','Take a photo of the result, with the student\'s name on it!','Repeat until you have 5 results in total.','Run a detailed quantitative analysis in Excel: overall good/bad answer rate, most displaced post-its and in which categories. Lots of data, easy to understand, plus a before/after FAQ recommendation.'],
+ fr:['Trouvez une FAQ en ligne.','Écrivez 5 catégories prises dans la FAQ sur 5 post-its, une catégorie par post-it.','Choisissez 5 questions par catégorie et écrivez-les sur des post-its d\'une autre couleur : 25 au total.','Posez les post-its catégories sur une table, mélangez les 25 post-its questions et donnez-les à un autre étudiant, qui place chacun dans la catégorie qui lui semble la bonne.','Prenez une photo du résultat, avec le nom de l\'étudiant !','Recommencez pour obtenir 5 résultats au total.','Faites une analyse quantitative détaillée sous Excel : taux global de bonnes/mauvaises réponses, post-its les plus déplacés et dans quelles catégories. Beaucoup de données, faciles à comprendre, et une recommandation de FAQ avant/après.']};
+const HUNT = ['To illustrate your exemples, you need to take pictures or videos as proof','To make sure your exemples are authentic, you should use a common item on all of your pictures/videos','One exemple can only serve one heuristic','Most of your exemple should be real-life: only one third can be screenshots'];
+const TAG = { qual:{fr:'Qualitatif',en:'Qualitative'}, quant:{fr:'Quantitatif',en:'Quantitative'}, att:{fr:'Attitudinal',en:'Attitudinal'}, beh:{fr:'Comportemental',en:'Behavioural'} };
+const METHODS = [
+ {id:'interviews', type:'qual', dims:['att'], goals:['why'], stages:['explore'],
+  fr:{name:'Entretiens utilisateurs', q:"Pourquoi les gens font-ils ce qu'ils font ? Leurs motivations, leurs frustrations, leur contexte.", when:"Au début du projet, en phase de découverte, quand le sujet est encore flou.", n:'5 – 8', get:"Des verbatims qui expliquent un comportement : « J'abandonne au paiement parce que je ne suis pas sûr que mes données soient protégées. »", watch:"Les gens décrivent ce qu'ils pensent faire, pas ce qu'ils font réellement. Croisez avec de l'observation."},
+  en:{name:'User interviews', q:'Why do people do what they do? Their motivations, frustrations and context.', when:'Early in the project, during discovery, while the topic is still fuzzy.', n:'5 – 8', get:'Quotes that explain a behaviour: “I drop off at checkout because I\'m not sure my data is safe.”', watch:'People tell you what they think they do, not what they actually do. Cross-check with observation.'}},
+ {id:'nps', type:'quant', dims:['att'], goals:['measure'], stages:['live'],
+  fr:{name:'Net Promoter Score', q:"Les gens nous recommanderaient-ils ? Et est-ce que ça progresse dans le temps ?", when:"En continu, comme indicateur de suivi. Pas pour diagnostiquer un problème.", n:'100+', get:"Un score unique de −100 à +100 (% de promoteurs − % de détracteurs), à suivre dans le temps.", watch:"C'est un chiffre, pas une explication : seul, il ne dit pas quoi corriger.", extra:"Créé en 2003 par Fred Reichheld (Bain & Company) pour obtenir un score de satisfaction simple à lire, comparable dans le temps et entre secteurs."},
+  en:{name:'Net Promoter Score', q:'How likely are people to recommend you, and is that improving over time?', when:'Ongoing, as a tracking metric. Not to diagnose problems.', n:'100+', get:'A single score from −100 to +100 (% promoters − % detractors), trackable over time.', watch:'A number, not a reason: on its own it tells you nothing about what to fix.', extra:'Created in 2003 by Fred Reichheld (Bain & Company) to give a clear, easy-to-read satisfaction score that can be compared over time and across industries.'}},
+ {id:'diary', brief:true, type:'qual', dims:['att','beh'], goals:['why'], stages:['explore','live'],
+  fr:{name:'Journal de bord (diary study)', q:"Comment le comportement et l'expérience évoluent-ils sur plusieurs jours ou semaines ?", when:"Pour étudier des habitudes, des routines ou des expériences longues qu'on ne peut pas observer en direct.", n:'8 – 15', get:"Des entrées au jour le jour : « Jour 3 – j'ai abandonné, je suis revenu à l'ancienne appli. »", watch:"Beaucoup d'abandons : les participants oublient ou arrêtent de remplir leur journal. Prévoyez des relances."},
+  en:{name:'Diary study', q:'How do behaviour and experience evolve over days or weeks?', when:"For habits, routines and long experiences you can't observe live.", n:'8 – 15', get:'Day-by-day entries: “Day 3 – gave up, went back to the old app.”', watch:'Drop-off is high: people forget or stop logging entries. Plan reminders.'}},
+ {id:'focus', brief:true, type:'qual', dims:['att'], goals:['why'], stages:['explore'],
+  fr:{name:'Focus group', q:"Quels mots, quelles attitudes et quelles réactions entourent un sujet ?", when:"En exploration, pour sonder des perceptions, un concept ou un message.", n:'6 – 8 × 2', get:"Les grands thèmes de la discussion, des citations marquantes et les points de désaccord.", watch:"Effet de groupe : les voix fortes dominent. Ne l'utilisez pas pour tester l'utilisabilité."},
+  en:{name:'Focus group', q:'What language, attitudes and reactions surround a topic?', when:'Early exploration of perceptions, concepts or messaging.', n:'6 – 8 × 2', get:'Themes from the discussion, telling quotes and disagreements.', watch:'Groupthink: loud voices dominate. Not for testing usability.'}},
+ {id:'eye', type:'quant', dims:['beh'], goals:['attention'], stages:['prototype','live'],
+  fr:{name:'Eye tracking', q:"Que regardent vraiment les gens, dans quel ordre, et que ratent-ils complètement ?", when:"Quand il faut savoir si un élément clé est vu… ou ignoré.", n:'30+', get:"Une heatmap ou un parcours du regard : zones chaudes où l'œil s'attarde, zones froides que personne ne voit.", watch:"Regarder n'est pas comprendre : la carte montre où vont les yeux, jamais pourquoi.", link:'https://www.realeye.io', linkLabel:'Essayer la démo RealEye'},
+  en:{name:'Eye tracking', q:'What do people actually look at, in what order, and what do they miss entirely?', when:'When you need to know whether a key element is seen (or ignored).', n:'30+', get:'A heatmap or gaze plot: hot zones where eyes lingered, cold zones nobody saw.', watch:"Looking isn't understanding: a heatmap shows where eyes went, never why.", link:'https://www.realeye.io', linkLabel:'Try the RealEye demo'}},
+ {id:'emotion', type:'quant', dims:['beh'], goals:['attention'], stages:['prototype','live'],
+  fr:{name:'Emotion tracking', q:"Comment les gens réagissent-ils émotionnellement, instant par instant ? Où la frustration, le plaisir ou la confusion apparaissent-ils ?", when:"Quand la réaction émotionnelle est l'objet même de l'étude.", n:'20 – 30+', get:"Une courbe d'émotion dans le temps : pics de frustration ou de joie, synchronisés avec ce que faisait la personne.", watch:"La science est fragile : une expression du visage n'indique pas de façon fiable ce que la personne ressent."},
+  en:{name:'Emotion tracking', q:'How do people react emotionally, moment to moment, and where do frustration, delight or confusion spike?', when:'When emotional response is the point.', n:'20 – 30+', get:'An emotion-over-time curve: spikes of frustration or joy synced to what the person was doing.', watch:'The science is shaky: a facial expression is not a reliable read of what someone actually feels.'}},
+ {id:'heatmaps', type:'quant', dims:['beh'], goals:['measure','attention'], stages:['live'],
+  fr:{name:'Heatmaps', q:"Où les gens cliquent-ils, survolent-ils, arrêtent-ils de défiler ? Qu'ignorent-ils ?", when:"Sur une page en ligne, pour repérer les schémas d'attention et d'interaction.", n:'1 000+', get:"Un calque coloré sur la page : zones chaudes d'activité, zones froides que personne ne touche.", watch:"Montre où, jamais pourquoi. Une zone chaude peut signifier « engageant » comme « déroutant »."},
+  en:{name:'Heatmaps', q:'Where do people click, hover and stop scrolling on a page, and what do they ignore?', when:'On a live page, to spot attention and interaction patterns.', n:'1,000+', get:'A colour overlay: hot zones of activity, cold zones nobody touches.', watch:'Shows where, never why. A hot zone can mean “engaging” or “confusing”.'}},
+ {id:'fivesec', type:'qual', dims:['att'], goals:['attention'], stages:['prototype','live'],
+  fr:{name:'Test des 5 secondes', q:"Que retiennent et ressentent les gens dans les toutes premières secondes devant une page ?", when:"Pour tester une première impression, la clarté d'une landing page ou d'une proposition de valeur.", n:'5 – 10+', get:"Des réponses de mémoire (« De quoi parlait la page ? », « Qu'est-ce qui vous a marqué ? ») et une première impression.", watch:"Ne teste que le premier coup d'œil : ne dit rien sur la capacité à utiliser le site.", extra:"Une première impression se forme en environ 50 millisecondes. Questions simples : comprend-on le produit ou le service ? Voit-on ce qu'on y gagne ? Se souvient-on du nom du site ? À inclure dans votre test d'utilisabilité."},
+  en:{name:'5-second test', q:'What do people grasp, remember and feel in the first few seconds of seeing a page?', when:'Testing first impressions, the clarity of a landing page, or a value proposition.', n:'5 – 10+', get:'Recall answers (“What was it about?” “What stood out?”) plus a first impression.', watch:'Only tests the first glance: says nothing about whether people can actually use the thing.', extra:'First impressions form in about 50 milliseconds. Simple questions: do users understand the product or service? Do they feel they get something out of the site? Do they remember its name? Include one in your usability test.'}},
+ {id:'usability', type:'qual', dims:['beh'], goals:['usable'], stages:['prototype','live'],
+  fr:{name:"Tests d'utilisabilité", q:"Les gens arrivent-ils à accomplir les tâches clés ? Et où bloquent-ils ?", when:"Quand vous avez un prototype ou un produit en ligne à évaluer.", n:'5+', get:"Des moments observés : un utilisateur qui survole l'écran, perdu, incapable de trouver le bouton.", watch:"Teste le design, pas l'envie d'utiliser le produit."},
+  en:{name:'Usability tests', q:'Can people actually complete key tasks, and where do they struggle?', when:'When you have a prototype or live product to evaluate.', n:'5+', get:'A clip of a user hovering, lost, unable to find the button.', watch:"Tests the design, not whether anyone wants the product."}},
+ {id:'smoke', brief:true, type:'quant', dims:['beh'], goals:['measure'], stages:['explore','live'],
+  fr:{name:'Smoke test', q:"Les gens sont-ils intéressés par une fonctionnalité avant qu'on la construise ?", when:"Avant d'investir : un changement rapide et non fonctionnel de l'interface mesure l'intérêt.", n:'—', get:"Une mesure d'intérêt réel, par exemple les clics sur un bouton qui n'existe pas encore.", watch:"Cliquer n'est pas acheter : rendez le parcours assez long pour simuler une vraie envie. Ne promettez pas trop, soyez transparent, et laissez tourner le test assez longtemps pour qu'il soit significatif."},
+  en:{name:'Smoke test', q:'Are people interested in a feature before we build it?', when:'Before committing resources: a quick, non-functional change to the interface measures interest.', n:'—', get:'A measure of real interest, e.g. clicks on a button for something that doesn\'t exist yet.', watch:'Clicking is not buying: make the process long enough to simulate real desire. Don\'t promise too much, be transparent, and run it long enough to be significant.'}},
+ {id:'firstclick', brief:true, type:'quant', dims:['beh'], goals:['usable'], stages:['prototype','live'],
+  fr:{name:'First click test', q:"Les gens cliquent-ils au bon endroit dès le premier clic ?", when:"Pour tester la navigation et les libellés d'un site ou d'un prototype.", n:'—', get:"Le premier clic de chaque personne et le temps mis pour la tâche.", watch:"Donnez toujours exactement la même tâche, et ne dites jamais qu'on les chronomètre.", extra:"Bob Bailey et Cari Wolfson : quand le premier clic est bon, 87 % des utilisateurs réussissent la tâche, contre 46 % quand il est mauvais."},
+  en:{name:'First click test', q:'Do people click in the right place first?', when:'To test navigation and labels on a site or prototype.', n:'—', get:'Each person\'s first click and the time taken for the task.', watch:'Always give the exact same task, and never mention they are being timed.', extra:'Bob Bailey & Cari Wolfson: if the first click was correct, users had an 87% chance of completing the task, versus 46% if it was wrong.'}},
+ {id:'cardsort', brief:true, type:'qual', dims:['beh'], goals:['usable'], stages:['explore','prototype'],
+  fr:{name:'Card sorting', q:"Comment les gens regroupent-ils et nomment-ils l'information ?", when:"Pour organiser le contenu d'un produit ou d'une interface : menus, FAQ…", n:'—', get:"Des catégories, la répartition des cartes et les cartes les plus souvent mal placées.", watch:"Choisissez votre format : ouvert ou fermé, modéré ou non, papier ou numérique."},
+  en:{name:'Card sorting', q:'How do people group and label information?', when:'To organize the content of a product or interface: menus, FAQs…', n:'—', get:'Categories, how cards are distributed, and which cards are misplaced most often.', watch:'Pick your format: open vs. closed, moderated vs. unmoderated, paper vs. digital.'}}
+];
+const T = {
+ fr:{qmApply:'Mise en pratique', qmApplySub:'Quelle méthode, quand ?', qmMap:'Cartographie', qmMapSub:'Quali, quanti, attitudinal…', zAsk:'Où placer cette méthode ?', zQual:'Qualitatif', zQuant:'Quantitatif', zAtt:'Attitudinal', zBeh:'Comportemental', briefTag:'Survol', utAll:'Tous les étudiants · les détails peuvent varier selon les groupes', utTitle:"Test d'utilisabilité", csTitle:'Card sorting', gwKicker:'3 projets', gwTitle:'Travail de groupe', hTitle:'Les 10 heuristiques de Nielsen', hText:'Dix règles simples pour repérer les problèmes d\'utilisabilité. Touchez une carte pour la découvrir.', hShuffle:'Au hasard', hExample:'Exemple', hAsk:'Posez-vous la question', hVideoLink:'Vidéo NN/g', hSource:'Source : Jakob Nielsen,', huntOnly:'Seulement pour certains groupes : vérifiez auprès d\'Emilien', huntTitle:'Chasse aux heuristiques', huntCta:'Revoir les heuristiques', onYoutube:'Ouvrir sur YouTube', lVideo:'En vidéo', play:'Lire la vidéo', videosTitle:'Vidéos', videosText:'Courtes vidéos de Nielsen Norman Group (en anglais) pour approfondir les méthodes.', byline:'Le cours CX d\'Emilien Nizon · MBS', chatTitle:'Une question sur le cours ?', chatText:'Posez-la ici, en anglais ou en français. L\'assistant explique le cours et les consignes et propose des ressources NN/g. Il ne fera pas l\'exercice à votre place.', chatTry:'Par exemple', chatPlaceholder:'Votre question…', send:'Envoyer', chatError:'Désolé, je n\'ai pas pu répondre. Réessayez dans un instant.', ch1:'Chapitre 1 · Introduction', chSoon:'Chapitres suivants · bientôt', themeLabel:'Changer de thème', heroTitle:'Méthodes de recherche utilisateur', heroText:"Une fiche par méthode. Faites défiler, filtrez, et marquez chaque fiche comme lue pour suivre votre progression.", prev:'Précédent', next:'Suivant', noResults:"Aucune méthode ne correspond à ces filtres.", lQuestion:'La question', lWhen:'Quand l’utiliser', lHowMany:'Combien', lGet:'Ce que vous obtenez', lWatch:'Attention', read:'Lue', markRead:'Marquer comme lue', chooseTitle:'Quelle méthode choisir ?', chooseText:"Répondez à deux questions pour voir les méthodes les plus adaptées à votre situation.", q1:'Que cherchez-vous à savoir ?', q2:'Où en est votre projet ?', recoTitle:'Méthodes conseillées', openCard:'Voir la fiche', exKicker:'Exercice', exTitle:"Test d'utilisabilité", exSoonTag:'CONSIGNES · À VENIR', exSoon:"Les consignes détaillées (sujet, livrables, date de rendu) seront publiées ici.", exRecap:'Rappels de cours', quizResult:'Votre score', restart:'Recommencer le quiz', keyTitle:'À retenir', keyText:"Quatre principes pour une recherche utilisateur utile. (En cours : l'exemple de Taylor Swift qui fait écouter ses albums à quelques fans avant leur sortie.)", fordQuote:"Si j'avais demandé aux gens ce qu'ils voulaient, ils m'auraient répondu des chevaux plus rapides.", fordNote:"ce qu'il ne faut pas faire", glossTitle:'Glossaire', resTitle:'Ressources', tabs:['Assistant','Méthodes','Heuristics','Groupe','Quiz','Repères']},
+ en:{qmApply:'Apply it', qmApplySub:'Which method, when?', qmMap:'Map the methods', qmMapSub:'Qual, quant, attitudinal…', zAsk:'Where does this method sit?', zQual:'Qualitative', zQuant:'Quantitative', zAtt:'Attitudinal', zBeh:'Behavioural', briefTag:'Covered briefly', utAll:'All students · details may vary by group', utTitle:'Usability test', csTitle:'Card sorting', gwKicker:'3 projects', gwTitle:'Group work', hTitle:'Nielsen\'s 10 usability heuristics', hText:'Ten rules of thumb to spot usability problems. Tap a card to explore it.', hShuffle:'Surprise me', hExample:'Example', hAsk:'Ask yourself', hVideoLink:'NN/g video', hSource:'Source: Jakob Nielsen,', huntOnly:'Only for some groups: check with Emilien', huntTitle:'Heuristic hunt', huntCta:'Review the heuristics', onYoutube:'Open on YouTube', lVideo:'Watch', play:'Play video', videosTitle:'Videos', videosText:'Short videos from Nielsen Norman Group to go deeper on the methods.', byline:'Emilien Nizon\'s class', chatTitle:'Got a question about the course?', chatText:'Ask it here, in English or French. The assistant explains the course and the instructions and suggests NN/g resources. It won\'t do the exercise for you.', chatTry:'For example', chatPlaceholder:'Ask anything about the course…', send:'Send', chatError:'Sorry, I couldn\'t answer that. Please try again in a moment.', ch1:'Chapter 1 · Introduction', chSoon:'Next chapters · coming soon', themeLabel:'Toggle theme', heroTitle:'User research methods', heroText:'One card per method. Swipe, filter, and mark each card as read to track your progress.', prev:'Previous', next:'Next', noResults:'No method matches these filters.', lQuestion:'The question', lWhen:'When to use', lHowMany:'How many', lGet:'What you get', lWatch:'Watch out', read:'Read', markRead:'Mark as read', chooseTitle:'Which method should I use?', chooseText:'Answer two questions to see the methods that best fit your situation.', q1:'What do you want to find out?', q2:'Where is your project?', recoTitle:'Recommended methods', openCard:'Open card', exKicker:'Exercise', exTitle:'Usability test', exSoonTag:'INSTRUCTIONS · COMING SOON', exSoon:'Detailed instructions (topic, deliverables, due date) will be published here.', exRecap:'Course reminders', quizResult:'Your score', restart:'Restart quiz', keyTitle:'Key takeaways', keyText:'Four principles for useful user research. (In class: the Taylor Swift example, playing albums to a few fans before release.)', fordQuote:'If I had asked people what they wanted, they would have said faster horses.', fordNote:'what you should not be doing', glossTitle:'Glossary', resTitle:'Resources', tabs:['Ask','Methods','Heuristics','Group work','Quiz','Basics']}
+};
+const GOALS = [
+ {id:'why', fr:'Pourquoi les gens agissent ainsi (motivations, freins)', en:'Why people behave this way (motivations, pain points)'},
+ {id:'measure', fr:'Combien, à quelle fréquence : mesurer une tendance', en:'How many, how often: measure a trend'},
+ {id:'usable', fr:'Si les gens arrivent à utiliser mon produit', en:'Whether people can use my product'},
+ {id:'attention', fr:'Ce que les gens voient ou ressentent sur une interface', en:'What people see or feel on an interface'}
+];
+const STAGES = [
+ {id:'explore', fr:'Exploration / idée', en:'Exploration / idea'},
+ {id:'prototype', fr:'Prototype', en:'Prototype'},
+ {id:'live', fr:'Produit en ligne', en:'Live product'}
+];
+const QUIZ = [
+ {a:1, fr:{q:"Vous voulez savoir si les visiteurs comprennent votre proposition de valeur au premier coup d'œil.", o:['Journal de bord','Test des 5 secondes','NPS'], why:"Le test des 5 secondes montre ce que les gens retiennent d'un premier regard. Une première impression se forme en environ 50 millisecondes."}, en:{q:'You want to know whether visitors grasp your value proposition at first glance.', o:['Diary study','5-second test','NPS'], why:'A 5-second test shows what people grasp and remember from a first glance. First impressions form in about 50 milliseconds.'}},
+ {a:0, fr:{q:"Quelle hypothèse est bien formulée pour votre test d'utilisabilité ?", o:["Je pense que mes utilisateurs ne trouvent pas l'icône panier","Je pense que mes utilisateurs sont perdus sur le site"], why:"Une bonne hypothèse est très précise : une icône, une page, une formulation."}, en:{q:'Which hypothesis is well written for your usability test?', o:["I think my users can't find the basket icon",'I think my users are lost on the website'], why:'Good hypotheses are very specific: one icon, one page, one wording.'}},
+ {a:0, fr:{q:'Vous voulez savoir combien de clients abandonnent leur panier au moment du paiement.', o:['Une étude quantitative','Une étude qualitative'], why:"« Combien » appelle des données chiffrées sur un large échantillon. Pour comprendre pourquoi ils abandonnent, il faudrait ensuite du qualitatif."}, en:{q:'You want to know how many customers abandon their cart at checkout.', o:['A quantitative study','A qualitative study'], why:'“How many” calls for numbers from a broad sample. To understand why they abandon, you would then need qualitative research.'}},
+ {a:1, fr:{q:"Le projet démarre. Vous ne savez pas encore pourquoi vos utilisateurs quittent le service.", o:['Net Promoter Score','Entretiens utilisateurs','Heatmaps'], why:"En phase de découverte, quand le sujet est flou, les entretiens font émerger les motivations et les frustrations."}, en:{q:"The project is starting. You don't yet know why users leave the service.", o:['Net Promoter Score','User interviews','Heatmaps'], why:'In discovery, while the topic is fuzzy, interviews surface motivations and frustrations.'}},
+ {a:1, fr:{q:"Votre prototype d'appli est prêt. Vous voulez vérifier qu'on trouve le bouton de réservation.", o:['Focus group',"Test d'utilisabilité",'Journal de bord'], why:"Le test d'utilisabilité vérifie qu'on peut accomplir une tâche clé. Le focus group n'est pas fait pour ça."}, en:{q:'Your app prototype is ready. You want to check that people can find the booking button.', o:['Focus group','Usability test','Diary study'], why:"A usability test checks whether people can complete a key task. A focus group isn't meant for that."}},
+ {a:0, fr:{q:'La direction veut un indicateur de fidélité, suivi chaque trimestre.', o:['Net Promoter Score','Entretiens utilisateurs','Eye tracking'], why:"Le NPS est un indicateur de suivi, comparable dans le temps. Il ne dira pas pourquoi le score bouge."}, en:{q:'Management wants a loyalty metric tracked every quarter.', o:['Net Promoter Score','User interviews','Eye tracking'], why:"NPS is a tracking metric, comparable over time. It won't tell you why the score moves."}},
+ {a:0, fr:{q:"Vous voulez comprendre comment les gens utilisent une appli de sport pendant trois semaines.", o:['Journal de bord','Heatmaps','Focus group'], why:"Le journal de bord capte des habitudes et des routines sur la durée, qu'on ne peut pas observer en direct."}, en:{q:'You want to understand how people use a fitness app over three weeks.', o:['Diary study','Heatmaps','Focus group'], why:"A diary study captures habits and routines over time that you can't observe live."}},
+ {a:0, fr:{q:"Sur votre page d'accueil, personne ne semble remarquer la bannière promo.", o:['Eye tracking','Net Promoter Score','Journal de bord'], why:"L'eye tracking montre si un élément clé est vu ou ignoré, et dans quel ordre on regarde la page."}, en:{q:'On your home page, nobody seems to notice the promo banner.', o:['Eye tracking','Net Promoter Score','Diary study'], why:'Eye tracking shows whether a key element is seen or ignored, and in what order people look at the page.'}},
+ {a:1, fr:{q:"Choisir la couleur et la typographie d'un bouton relève plutôt…", o:["de l'UX","de l'UI"], why:"L'UI est la partie graphique, « la peau ». L'UX est plus analytique, « les organes »."}, en:{q:"Choosing a button's colour and typeface is mostly a matter of…", o:['UX','UI'], why:'UI is the graphic side, “the skin”. UX is more analytical, “the organs”.'}},
+ {a:1, fr:{q:"La citation d'Henry Ford sur les « chevaux plus rapides » rappelle qu'il faut…", o:['demander aux gens ce qu\'ils veulent','observer les comportements plutôt que se fier aux demandes'], why:"Comme Taylor Swift qui observe les visages au lieu de demander « ça te plaît ? », on apprend plus en observant qu'en demandant."}, en:{q:'Henry Ford\'s “faster horses” quote reminds us to…', o:['ask people what they want','observe behaviour rather than rely on requests'], why:'Like Taylor Swift watching faces instead of asking “do you like it?”, you learn more by observing than by asking.'}}
+];
+const PRINCIPLES = {
+ fr:[{title:'Un petit échantillon ciblé',text:'Quelques vrais utilisateurs bien choisis valent mieux qu\'une foule.'},{title:'Tester avant de lancer',text:'Recueillir des retours tant que le produit peut encore changer.'},{title:'Le contexte réel, pas un labo',text:'Observer là où l\'usage a vraiment lieu.'},{title:'Observer plutôt que demander',text:'Ce que les gens font en dit plus que ce qu\'ils disent.'}],
+ en:[{title:'Small, targeted sample',text:'A few well-chosen real users beat a crowd.'},{title:'Test before launch',text:'Gather feedback while the product can still change.'},{title:'Real context, not a lab',text:'Observe where the experience actually happens.'},{title:'Observe, don\'t ask',text:'What people do tells you more than what they say.'}]
+};
+const GLOSS = {
+ fr:[{term:'User Research',def:"Étude des comportements, des besoins et des motivations des utilisateurs, par l'observation, l'analyse de tâches et d'autres méthodes de retour."},{term:'UXR vs User Research',def:"L'UXR mesure l'expérience utilisateur ; la User Research se concentre sur le comportement. En pratique, la frontière est floue et les deux termes sont souvent confondus."},{term:'Cycle produit',def:"Idéation → développement du concept → développement → lancement. La recherche utilisateur intervient à chaque étape."},{term:'Quantitatif',def:"Données chiffrées à grande échelle pour repérer des tendances, mesurer des comportements ou valider des hypothèses. Répond à « combien ? »."},{term:'Qualitatif',def:"Compréhension en profondeur des motivations, des besoins et des points de friction, par entretiens ou observation. Répond à « pourquoi ? »."},{term:'Attitudinal',def:"Ce que les gens disent et pensent."},{term:'Comportemental',def:"Ce que les gens font réellement."},{term:'NPS',def:"Net Promoter Score : % de promoteurs − % de détracteurs, de −100 à +100."},{term:'UX',def:"User Experience. La partie analytique : « les organes »."},{term:'UI',def:"User Interface. La partie graphique : « la peau », l'apparence."},{term:'Questionnaire',def:"Quantitatif. Recueillir des données à grande échelle, pour des insights rapides ou valider une hypothèse."},{term:'Analytics',def:"Quantitatif. Mesurer les comportements réels sur un produit numérique."},{term:'A/B testing',def:"Quantitatif. Comparer deux versions pour mesurer laquelle fonctionne le mieux."},{term:'Shadowing',def:"Qualitatif. Suivre et observer une personne dans son environnement réel."},{term:'Empathy map',def:"Qualitatif. Synthétiser les besoins des utilisateurs pour aligner l'équipe."},{term:'Co-création',def:"Qualitatif. Imaginer des solutions directement avec les utilisateurs."},{term:'Benchmark',def:"Comparer plusieurs produits ou services pour positionner le vôtre."},{term:'SEQ',def:"Single Ease Question : une question avec une échelle, posée juste après une tâche."}],
+ en:[{term:'User Research',def:'Understanding user behaviours, needs and motivations through observation, task analysis and other feedback methods.'},{term:'UXR vs User Research',def:'UXR measures user experience; User Research focuses on behaviour. In practice the line is blurry and the terms are often used interchangeably.'},{term:'Product cycle',def:'Ideation → concept development → development → release. User research fits in at every stage.'},{term:'Quantitative',def:'Large-scale numerical data to spot trends, measure behaviours or validate hypotheses. Answers “how many?”.'},{term:'Qualitative',def:'Deep insight into motivations, needs and pain points through interviews or observation. Answers “why?”.'},{term:'Attitudinal',def:'What people say and think.'},{term:'Behavioural',def:'What people actually do.'},{term:'NPS',def:'Net Promoter Score: % promoters − % detractors, from −100 to +100.'},{term:'UX',def:'User Experience. The analytical side: “the organs”.'},{term:'UI',def:'User Interface. The graphic side: “the skin”, the cosmetics.'},{term:'Survey',def:'Quantitative. Gather large-scale data for quick insights or hypothesis validation.'},{term:'Analytics',def:'Quantitative. Measure actual behaviour on a digital product.'},{term:'A/B testing',def:'Quantitative. Compare two versions to measure which works better.'},{term:'Shadowing',def:'Qualitative. Follow and observe someone in their real environment.'},{term:'Empathy map',def:'Qualitative. Synthesize user needs to align the team.'},{term:'Co-creation',def:'Qualitative. Generate ideas and solutions directly with users.'},{term:'Benchmarking',def:'Compare products or services to position your own.'},{term:'SEQ',def:'Single Ease Question: one question with a rating scale, asked right after a task.'}]
+};
+const RES = {fr:[{name:'RealEye',desc:'Eye tracking par webcam : lancez la démo pour voir une heatmap du regard.',url:'https://www.realeye.io'}], en:[{name:'RealEye',desc:'Webcam eye tracking: launch the demo to see a gaze heatmap.',url:'https://www.realeye.io'}]};
+const EX = {fr:["5 participants suffisent pour repérer la plupart des problèmes.","Travaillez sur un prototype ou un produit en ligne.","Donnez des tâches concrètes à accomplir, puis observez sans aider.","Notez où les gens hésitent, se perdent ou abandonnent.","Rappel : le test évalue le design, pas l'envie d'utiliser le produit."], en:["5 participants are enough to spot most problems.","Work on a prototype or a live product.","Give concrete tasks, then observe without helping.","Note where people hesitate, get lost or give up.","Remember: the test evaluates the design, not whether people want the product."]};
+const KEY = 'cxm-course-v2';
+const SUGG = {en:['What\'s the difference between qualitative and quantitative research?','Why is NPS not enough on its own?','Where can I learn more about usability testing?'], fr:['Quelle différence entre recherche qualitative et quantitative ?','Pourquoi le NPS ne suffit-il pas à lui seul ?','Où approfondir les tests d\'utilisabilité ?']};
+const SYSTEM = "You are the teaching assistant for Emilien Nizon's Customer Experience Management class at MBS.\n\nWHAT YOU DO:\n- Answer questions about the course content below and explain concepts clearly.\n- Give and explain the exercise instructions from the groupWork section (usability test for all students, details may vary by group; heuristic hunt and card sorting only for some groups: remind students to check with Emilien).\n- Help students go deeper on a course topic by explaining it further.\n- Suggest additional resources, ONLY from nngroup.com and ONLY from the list provided below. Never invent or guess a URL.\n\nWHAT YOU NEVER DO (refuse politely and redirect to the course material):\n- Never do the work for the student: do not write interview guides, question lists, screeners, test scripts, task scenarios, personas, reports, analyses or any part of a deliverable.\n- Never give feedback, grades or corrections on a student's work, draft, plan or answers, even if they paste it.\n- Never answer questions unrelated to the course.\nWhen refusing, explain briefly that the goal is for them to learn by doing, then point to the relevant course concept or an NN/g resource.\n\nSTYLE: Reply in the language the student writes in (English by default, French if they write in French). Clear, friendly, concise (under 150 words). Formatting: plain text with **bold** for key terms (no headings, no tables, no other markdown); simple dashes for lists. You can embed interactive elements inline, using these exact tokens (use them when relevant, 1 to 3 per answer): [[method:ID]] opens a method card (IDs: interviews, nps, diary, focus, eye, emotion, heatmaps, fivesec, usability, smoke, firstclick, cardsort); [[heuristic:N]] opens heuristic N (1-10); [[tab:ID]] opens a section (methods, choose, heur, exercise = Group work, quiz, ref = Basics with glossary and videos); [[video:KEY]] embeds a video, put it on its own line (KEYS: interviews, focus, diary, usability, nps, analysis = Rainbow spreadsheet / analyzing qualitative data, h1 to h6 = heuristic videos 1 to 6). Links: write them as [label](url) or plain URLs. Whenever one of the listed videos is relevant, ALWAYS embed it with [[video:KEY]] on its own line, because students can watch it right inside the answer. If something isn't covered by the course, say so and suggest asking Emilien in class.\n\nFor the Heuristic hunt exercise (only some groups do it): explain the rules, but NEVER suggest example places, objects or products for the student to photograph.\n\nALLOWED NN/G RESOURCES:\nhttps://www.nngroup.com/articles/ten-usability-heuristics/\n" + HURL.map(u=>'https://www.nngroup.com/videos/'+u+'/').join('\n') + '\n' + NNG.join('\n') + "\n\nCOURSE CONTENT (JSON):\n" + JSON.stringify({methods: METHODS.map(m=>({...m.en, type:m.type, dims:m.dims})), glossary: GLOSS.en, taylorSwiftPrinciples: PRINCIPLES.en, fordQuote: T.en.fordQuote, heuristics: HEUR.en.map(h=>({name:h[0], idea:h[1], example:h[2]})), groupWork: {usabilityTest_allStudents_detailsMayVary: UT.map(u=>({step:u[0], intro:u[1], points:u[2], nngResources:(u[3]||[]).map(x=>x[1])})), cardSorting_someGroups: CS.en}, heuristicHuntExercise: {onlyForSomeGroups:true, task:'Go outside and find for each heuristic one good and one bad exemple.', rules: HUNT}, productCycle: 'Ideation, concept development, development, release', usabilityReminders: EX.en});
+
+class Component extends DCLogic {
+  constructor(p){ super(p);
+    let s = {}; try { s = JSON.parse(localStorage.getItem(KEY)) || {}; } catch(e){}
+    this.state = { quizMode:'apply', zOrder: this.shuffle(METHODS.map((_,i)=>i)), zi:0, zPick:null, zScore:0, zDone:false, zPlaced:[], hOpen: null, hSeen: s.hSeen || [], tab:'chat', messages:[], draft:'', thinking:false, lang: s.lang || this.props.startLang || 'en', theme: s.theme || (this.props.startDark ? 'dark' : 'light'), read: s.read || [], best: s.best ?? null, filters:{}, idx:0, goal:null, stage:null, qi:0, picked:null, score:0, done:false };
+    this.car = React.createRef(); this.root = React.createRef();
+  }
+  save(){ const {lang,theme,read,best,hSeen} = this.state; try { localStorage.setItem(KEY, JSON.stringify({lang,theme,read,best,hSeen})); } catch(e){} }
+  set(p){ this.setState(p, () => this.save()); }
+  visible(){ const f = this.state.filters; const types = ['qual','quant'].filter(k=>f[k]); const dims = ['att','beh'].filter(k=>f[k]);
+    return METHODS.filter(m => (!types.length || types.includes(m.type)) && (!dims.length || dims.some(d=>m.dims.includes(d)))); }
+  cards(){ const el = this.car.current; return el ? el.querySelectorAll('[data-card]') : []; }
+  goTo(i, smooth=true){ const el = this.car.current; const c = this.cards()[i]; if (!el || !c) return; el.scrollTo({left: c.offsetLeft - 16, behavior: smooth ? 'smooth' : 'auto'}); }
+  onCarScroll = () => { const el = this.car.current; const cs = this.cards(); if (!el || !cs.length) return;
+    let best = 0, d = Infinity; cs.forEach((c,i)=>{ const x = Math.abs(c.offsetLeft - 16 - el.scrollLeft); if (x < d){ d = x; best = i; } });
+    if (best !== this.state.idx) this.setState({idx: best}); };
+  openMethod(id){ const i = METHODS.findIndex(m=>m.id===id); this.setState({tab:'methods', filters:{}, idx:i}, () => setTimeout(()=>this.goTo(i,false), 30)); window.scrollTo(0,0); }
+  async ask(text){ text = (text||'').trim(); if (!text || this.state.thinking) return;
+    const messages = [...this.state.messages, {role:'user', text}];
+    this.setState({messages, draft:'', thinking:true}, () => window.scrollTo({top: document.body.scrollHeight, behavior:'smooth'}));
+    let reply;
+    const payload = {system: SYSTEM, max_tokens: 700, messages: messages.slice(-12).map(m=>({role:m.role, content:m.text}))};
+    try {
+      if (window.claude && window.claude.complete) reply = await window.claude.complete(payload);
+      else { const r = await fetch('/api/claude', {method:'POST', headers:{'content-type':'application/json'}, body: JSON.stringify(payload)}); const d = await r.json(); if (!r.ok) throw new Error(d.error || 'API error'); reply = d.text; }
+    }
+    catch(e){ reply = T[this.state.lang].chatError; }
+    this.setState(s => ({messages:[...s.messages, {role:'assistant', text:(reply||'').trim()}], thinking:false}), () => window.scrollTo({top: document.body.scrollHeight, behavior:'smooth'}));
+  }
+  onPointer = (e) => { if (e.pointerType === 'touch') return; const r = this.root.current; if (!r) return;
+    r.style.setProperty('--px', (e.clientX / window.innerWidth - .5).toFixed(3)); r.style.setProperty('--py', (e.clientY / window.innerHeight - .5).toFixed(3)); };
+  componentDidMount(){ this.onTilt = (e) => { const r = this.root.current; if (!r || e.gamma == null) return;
+      r.style.setProperty('--px', Math.max(-.5, Math.min(.5, e.gamma / 60)).toFixed(3)); r.style.setProperty('--py', Math.max(-.5, Math.min(.5, (e.beta - 40) / 60)).toFixed(3)); };
+    window.addEventListener('deviceorientation', this.onTilt); }
+  componentWillUnmount(){ window.removeEventListener('deviceorientation', this.onTilt); clearTimeout(this.readTimer); }
+  markRead(m, vi){ const s = this.state; const read = s.read.includes(m.id);
+    if (read) { this.set({read: s.read.filter(x=>x!==m.id)}); return; }
+    this.set({read: [...s.read, m.id], justRead: m.id});
+    clearTimeout(this.readTimer);
+    this.readTimer = setTimeout(() => { this.setState({justRead: null}); const n = this.visible().length; if (vi < n - 1) this.goTo(vi + 1); }, 850); }
+  vid(key){ const v = VIDEOS[key]; if (!v) return null; const playing = this.state.playing === key;
+    return { ...v, playing, idle: !playing, thumb: 'https://i.ytimg.com/vi/' + v.yt + '/hqdefault.jpg', embed: 'https://www.youtube.com/embed/' + v.yt + '?autoplay=1&rel=0&playsinline=1' + (location.origin && location.origin !== 'null' ? '&origin=' + encodeURIComponent(location.origin) : ''), yturl: 'https://www.youtube.com/watch?v=' + v.yt, play: () => this.setState({playing: key}) }; }
+  hvid(n){ const yt = HV[n], key = 'h'+n, playing = this.state.playing === key;
+    return { yt, playing, idle: !playing, title: 'NN/g heuristic ' + n, thumb: 'https://i.ytimg.com/vi/'+yt+'/hqdefault.jpg', embed: 'https://www.youtube.com/embed/'+yt+'?autoplay=1&rel=0&playsinline=1' + (location.origin && location.origin !== 'null' ? '&origin=' + encodeURIComponent(location.origin) : ''), yturl: 'https://www.youtube.com/watch?v='+yt, play: () => this.setState({playing: key}) }; }
+  openH(i){ i = (i + 10) % 10; const seen = this.state.hSeen || []; this.set({hOpen: i, playing: null, hSeen: seen.includes(i) ? seen : [...seen, i]}); }
+  parse(text, L, mi){
+    const out = []; const push = (o) => { if (o.isText) { o.text = o.text.replace(/\*+/g,''); if (!o.text) return; } out.push({isText:false,isLink:false,isNav:false,isVideo:false,weight:'400',v:{},...o}); };
+    text = (text||'').replace(/^#+\s*/gm,'').replace(/^\s*[*•]\s+/gm,'– ');
+    const re = /(\[[^\[\]\n]+\]\(https?:\/\/[^)\s]+\)|\*\*[^*\n]+?\*\*|\*[^*\s][^*\n]*?\*|\[\[[a-z]+:[^\]]+\]\]|https?:\/\/[^\s)\]]+)/g; let last = 0, mt;
+    const shown = new Set();
+    const vidFor = (u) => { const clean = u.split('?')[0].replace(/\/?$/,'/'); for (const k in VIDEOS) if (VIDEOS[k].url === clean) return this.vid(k);
+      const hi = HURL.findIndex(h => clean === 'https://www.nngroup.com/videos/' + h + '/'); if (hi >= 0 && HV[hi+1]) return this.hvid(hi+1);
+      const yt = u.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([\w-]{11})/); if (yt) { for (const k in VIDEOS) if (VIDEOS[k].yt === yt[1]) return this.vid(k); for (const n in HV) if (HV[n] === yt[1]) return this.hvid(+n); }
+      return null; };
+    const addLink = (url, label) => { url = url.replace(/[.,;:]+$/,''); push({isLink:true, url, text: label || url.replace(/^https?:\/\/(www\.)?/,'').replace(/\/$/,'')}); const v = vidFor(url); if (v && !shown.has(v.yt)) { shown.add(v.yt); push({isVideo:true, v}); } };
+    const tabName = {methods:1, heur:2, exercise:3, quiz:4, ref:5, choose:1};
+    while ((mt = re.exec(text))) {
+      if (mt.index > last) push({isText:true, text:text.slice(last, mt.index)});
+      const tok = mt[0];
+      if (tok.startsWith('*')) push({isText:true, text:tok.replace(/^\*+|\*+$/g,''), weight:'800'});
+      else if (tok.startsWith('http')) addLink(tok);
+      else if (tok[0]==='[' && tok[1]!=='[') { const mm = tok.match(/^\[([^\]]+)\]\((.+)\)$/); if (mm) addLink(mm[2], mm[1]); }
+      else { const [kind, val] = tok.slice(2,-2).split(':');
+        if (kind==='method') { const m = METHODS.find(x=>x.id===val); if (m) push({isNav:true, text:m[L].name, go:()=>this.openMethod(val)}); }
+        else if (kind==='heuristic') { const n = parseInt(val,10); if (n>=1 && n<=10) push({isNav:true, text:(L==='fr'?'Heuristique ':'Heuristic ')+n, go:()=>{ this.setState({tab:'heur'}); window.scrollTo(0,0); this.openH(n-1); }}); }
+        else if (kind==='tab') { const i = tabName[val]; if (i) push({isNav:true, text:T[L].tabs[i], go:()=>{ this.setState({tab: val==='choose'?'choose':val}); window.scrollTo(0,0); }}); }
+        else if (kind==='video') { let v = null; if (VIDEOS[val]) v = this.vid(val); else if (/^h\d+$/.test(val) && HV[+val.slice(1)]) v = this.hvid(+val.slice(1)); if (v && !shown.has(v.yt)) { shown.add(v.yt); push({isVideo:true, v}); } }
+      }
+      last = mt.index + tok.length;
+    }
+    if (last < text.length) push({isText:true, text:text.slice(last)});
+    return out;
+  }
+  shuffle(a){ a = a.slice(); for (let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+  zVals(L, t){
+    const s = this.state, n = METHODS.length, m = METHODS[s.zOrder[s.zi]], ok = m.dims.map(d => m.type+'-'+d), answered = s.zPick !== null;
+    const Q = [['qual-att',2,2,t.zQual+' · '+t.zAtt],['quant-att',3,2,t.zQuant+' · '+t.zAtt],['qual-beh',2,3,t.zQual+' · '+t.zBeh],['quant-beh',3,3,t.zQuant+' · '+t.zBeh]];
+    const zQuads = Q.map(([id,col,row,label]) => { let bg='var(--surface)', border='var(--line)', labelInk='var(--muted)';
+      if (answered && ok.includes(id)) { bg='var(--ok-bg)'; border='var(--ok-ink)'; labelInk='var(--ok-ink)'; } else if (answered && s.zPick===id) { bg='var(--ko-bg)'; border='var(--ko-ink)'; labelInk='var(--ko-ink)'; }
+      return { id, col: String(col), row: String(row), label, bg, border, labelInk, chips: s.zPlaced.filter(p=>p.quad===id).map(p=>METHODS[p.i][L].name),
+        pick: () => { if (answered) return; const good = ok.includes(id); this.setState({ zPick:id, zScore: s.zScore + (good?1:0), zPlaced: [...s.zPlaced, ...ok.map(q=>({i:s.zOrder[s.zi], quad:q}))] }); } }; });
+    const good = answered && ok.includes(s.zPick), last = s.zi === n-1;
+    const both = m.dims.length > 1;
+    const why = m[L].name + ' — ' + TAG[m.type][L].toLowerCase() + ', ' + m.dims.map(d=>TAG[d][L].toLowerCase()).join(L==='fr'?' et ':' and ') + (both ? (L==='fr'?' (les deux zones sont acceptées)':' (both zones accepted)') : '') + '. ' + (L==='fr'?'Elle répond à : ':'It answers: ') + m[L].q;
+    return { isMap: s.quizMode==='map', isApply: s.quizMode!=='map', zRunning: !s.zDone, zDone: s.zDone, zName: m[L].name, zKey: 'z'+s.zi,
+      zCounter: (L==='fr'?'Méthode ':'Method ') + (s.zi+1) + ' / ' + n, zScoreLabel: L==='fr' ? s.zScore+' bien placée'+(s.zScore>1?'s':'') : s.zScore+' correct', zPct: Math.round((s.zi+(answered?1:0))/n*100)+'%',
+      zQuads, zAnswered: answered, zVerdict: good ? (L==='fr'?'Bien placé':'Correct') : (L==='fr'?'Pas tout à fait':'Not quite'), zVerdictColor: good?'var(--ok-ink)':'var(--ko-ink)', zWhy: why,
+      zOpen: () => this.openMethod(m.id), zNextLabel: last ? (L==='fr'?'Voir mon score':'See my score') : (L==='fr'?'Méthode suivante':'Next method'),
+      zNext: () => { if (last) this.setState({zDone:true}); else this.setState({zi: s.zi+1, zPick:null}); },
+      zFinal: s.zScore + '/' + n, zFinalMsg: s.zScore >= n-2 ? (L==='fr'?'Vous savez situer chaque méthode.':'You can place every method.') : (L==='fr'?'Revoyez les fiches méthodes : chaque fiche indique sa zone.':'Review the method cards: each one shows its zone.'),
+      zRestart: () => this.setState({zOrder: this.shuffle(METHODS.map((_,i)=>i)), zi:0, zPick:null, zScore:0, zDone:false, zPlaced:[]}),
+      quizModes: [['apply',t.qmApply,t.qmApplySub],['map',t.qmMap,t.qmMapSub]].map(([id,label,sub]) => { const on = (s.quizMode||'apply')===id; return { label, sub, bg: on?'var(--surface)':'transparent', ink: on?'var(--brand)':'var(--muted)', shadow: on?'0 2px 8px rgba(4,38,58,.12)':'none', go: () => this.setState({quizMode:id}) }; }) };
+  }
+  renderVals(){
+    const s = this.state, L = s.lang, t = T[L];
+    const vis = this.visible();
+    const methods = vis.map((m, vi) => { const c = m[L]; const read = s.read.includes(m.id);
+      return { ...c, num: String(METHODS.indexOf(m)+1).padStart(2,'0'), tags:[TAG[m.type][L], ...m.dims.map(d=>TAG[d][L]), ...(m.brief ? [t.briefTag] : [])], read, unread: !read,
+        hasExtra: !!c.extra, hasLink: !!c.link, linkUrl: c.link, justRead: s.justRead === m.id, hasVideo: !!VIDEOS[m.id], v: this.vid(m.id), toggleRead: () => this.markRead(m, vi) }; });
+    const filterChips = ['qual','quant','att','beh'].map(k => { const on = !!s.filters[k];
+      return { label: TAG[k][L], bg: on ? 'var(--brand)' : 'var(--surface)', ink: on ? 'var(--brand-ink)' : 'var(--ink)', border: on ? 'var(--brand)' : 'var(--line)',
+        toggle: () => this.setState({filters:{...s.filters, [k]: !on}, idx:0}, () => { const el=this.car.current; if(el) el.scrollTo({left:0}); }) }; });
+    const readCount = s.read.length, total = METHODS.length;
+    const pick = (on) => ({ border: on ? 'var(--brand)' : 'var(--line)', bg: on ? 'var(--chip)' : 'var(--surface)' });
+    const goalOpts = GOALS.map(g => ({ label: g[L], ...pick(s.goal===g.id), pick: () => this.setState({goal:g.id}) }));
+    const stageOpts = STAGES.map(g => ({ label: g[L], ...pick(s.stage===g.id), pick: () => this.setState({stage:g.id}) }));
+    let reco = [];
+    if (s.goal) { reco = METHODS.map(m => ({m, sc: (m.goals.includes(s.goal)?2:0) + (s.stage && m.stages.includes(s.stage)?1:0)}))
+      .filter(x => x.m.goals.includes(s.goal)).sort((a,b)=>b.sc-a.sc).slice(0,3)
+      .map(({m}) => ({ name: m[L].name, q: m[L].q, badge: TAG[m.type][L] + ' · ' + m[L].n, open: () => this.openMethod(m.id) })); }
+    const Q = QUIZ[s.qi], qc = Q[L], answered = s.picked !== null;
+    const quizOpts = qc.o.map((label,i) => { let border='var(--line)', bg='var(--surface)', ink='var(--ink)';
+      if (answered){ if (i===Q.a){ border='var(--ok-ink)'; bg='var(--ok-bg)'; ink='var(--ok-ink)'; } else if (i===s.picked){ border='var(--ko-ink)'; bg='var(--ko-bg)'; ink='var(--ko-ink)'; } }
+      return { label, border, bg, ink, pick: () => { if (answered) return; this.setState({picked:i, score: s.score + (i===Q.a?1:0)}); } }; });
+    const correct = answered && s.picked === Q.a;
+    const last = s.qi === QUIZ.length-1;
+    const tabIds = ['chat','methods','heur','exercise','quiz','ref'];
+    const HL = HEUR[L], hi = s.hOpen;
+    const mkH = (i) => ({ num: String(i+1).padStart(2,'0'), name: HL[i][0], idea: HL[i][1], ex: HL[i][2], ask: HL[i][3], grad: HGRAD[i%3], url: 'https://www.nngroup.com/videos/' + HURL[i] + '/', hasVid: !!HV[i+1], v: HV[i+1] ? this.hvid(i+1) : {} });
+    const seen = s.hSeen || [];
+    return {
+      isChat: s.tab==='chat', noMessages: !s.messages.length, thinking: s.thinking, draft: s.draft,
+      messages: s.messages.map((m,mi) => ({text:m.text, isUser:m.role==='user', isBot:m.role!=='user', parts: m.role==='user' ? [] : this.parse(m.text, L, mi)})),
+      suggestions: SUGG[L].map(label => ({label, ask: () => this.ask(label)})),
+      onDraft: (e) => this.setState({draft: e.target.value}),
+      send: (e) => { e.preventDefault(); this.ask(s.draft); },
+      linkedinUrl: this.props.linkedinUrl || 'https://www.linkedin.com/in/emiliennizon/',
+      allVideos: VIDEO_ORDER.map(k => this.vid(k)),
+      rootRef: this.root, onPointer: this.onPointer,
+      burstDots: ['#ffd02e','#ff2bd6','#38c08f','#0aa0f5','#ff9f45','#5cbcff','#ffd02e','#ff2bd6','#38c08f','#ff9f45','#0aa0f5','#ff2bd6'].map((color,i) => ({color, rot: (i*30 + (i%2?12:0)) + 'deg', size: (i%3===0 ? 10 : 7) + 'px', delay: (i%3)*0.04 + 's'})),
+      ...this.zVals(L, t),
+      t, theme: s.theme, chapter:'1', onChapter: () => {},
+      frBg: L==='fr' ? '#ffd02e' : 'transparent', frInk: L==='fr' ? '#04263a' : '#ffffff',
+      enBg: L==='en' ? '#ffd02e' : 'transparent', enInk: L==='en' ? '#04263a' : '#ffffff',
+      themeRot: s.theme==='dark' ? '180deg' : '0deg',
+      setFr: () => this.set({lang:'fr'}), setEn: () => this.set({lang:'en'}),
+      toggleTheme: () => this.set({theme: s.theme==='dark' ? 'light' : 'dark'}),
+      isMethods: s.tab==='methods', isChoose: s.tab==='choose', isHeur: s.tab==='heur',
+      openChoose: () => { this.setState({tab:'choose'}); window.scrollTo(0,0); },
+      openHeurTab: () => { this.setState({tab:'heur'}); window.scrollTo(0,0); },
+      heuristics: HL.map((_, i) => ({ ...mkH(i), seen: seen.includes(i), delay: (i*0.04)+'s', open: () => this.openH(i) })),
+      hOpen: hi !== null && hi !== undefined, hc: (hi !== null && hi !== undefined) ? mkH(hi) : mkH(0),
+      closeH: () => this.setState({hOpen: null, playing: null}), prevH: () => this.openH(hi - 1), nextH: () => this.openH(hi + 1),
+      shuffleH: () => { let r; do { r = Math.floor(Math.random()*10); } while (r === hi); this.openH(r); },
+      hSeenLabel: L==='fr' ? `${seen.length} / 10 découvertes` : `${seen.length} / 10 explored`,
+      huntRules: HUNT.map((text,i)=>({n:i+1, text})),
+      dates: DATES[L].map(([date,label])=>({date,label})),
+      utSteps: UT.map((u,i)=>{ const on = i===(s.ut||0); return { n:i+1, title:u[0], bg: on?'var(--brand)':(i<(s.ut||0)?'var(--chip)':'var(--surface)'), ink: on?'var(--brand-ink)':'var(--ink)', border: on?'var(--brand)':'var(--line)', go: () => this.setState({ut:i, playing:null}) }; }),
+      ut: (() => { const u = UT[s.ut||0]; const links = (u[3]||[]).map(([label,url])=>({label,url})); return { title:u[0], intro:u[1], points:u[2], links, hasLinks: links.length>0, linksLabel: (L==='fr'?'Ressources NN/g':'NN/g resources') + ' (' + links.length + ')' + (s.utLinks ? ' ▴' : ' ▾'), linksOpen: !!s.utLinks && links.length>0, hasVid: !!u[4], v: u[4] ? this.vid(u[4]) : {} }; })(), toggleUtLinks: () => this.setState({utLinks: !s.utLinks}), utKey: 'ut'+(s.ut||0),
+      utLabel: (L==='fr'?'Étape ':'Step ') + ((s.ut||0)+1) + ' / 7', utPct: Math.round(((s.ut||0)+1)/7*100)+'%',
+      utPrev: () => this.setState({ut: Math.max(0,(s.ut||0)-1), playing:null}), utNext: () => this.setState({ut: Math.min(6,(s.ut||0)+1), playing:null}),
+      csSteps: CS[L].map((text,i)=>({n:String(i+1).padStart(2,'0'), text, color: ['#ffd02e','#ff9f45','#ff9ad8','#7fe0c0','#8fd3ff','#ffd02e','#ff9f45'][i], rot: ((i%3)-1)*4+'deg'})),
+      openCardsort: () => this.openMethod('cardsort'), isExercise: s.tab==='exercise', isQuiz: s.tab==='quiz', isRef: s.tab==='ref',
+      readPct: Math.round(readCount/total*100) + '%',
+      progressLabel: L==='fr' ? `${readCount} / ${total} fiches lues` : `${readCount} / ${total} cards read`,
+      filterChips, methods, noResults: !vis.length, carRef: this.car, onCarScroll: this.onCarScroll,
+      counter: vis.length ? `${String(Math.min(s.idx+1, vis.length)).padStart(2,'0')} / ${String(vis.length).padStart(2,'0')}` : '00 / 00',
+      prev: () => this.goTo(Math.max(0, s.idx-1)), next: () => this.goTo(Math.min(vis.length-1, s.idx+1)),
+      goalOpts, stageOpts, reco, hasReco: reco.length > 0,
+      exPoints: EX[L].map((text,i)=>({n:i+1, text})), openUsability: () => this.openMethod('usability'),
+      quizRunning: !s.done, quizDone: s.done,
+      quizCounter: `${L==='fr'?'Question':'Question'} ${s.qi+1} / ${QUIZ.length}`,
+      quizScoreLabel: L==='fr' ? `${s.score} bonne${s.score>1?'s':''} réponse${s.score>1?'s':''}` : `${s.score} correct`,
+      quizPct: Math.round((s.qi + (answered?1:0))/QUIZ.length*100) + '%',
+      quizQ: qc.q, quizOpts, answered, quizWhy: qc.why,
+      verdict: correct ? (L==='fr'?'Bonne réponse':'Correct') : (L==='fr'?'Pas tout à fait':'Not quite'),
+      verdictColor: correct ? 'var(--ok-ink)' : 'var(--ko-ink)',
+      nextQLabel: last ? (L==='fr'?'Voir mon score':'See my score') : (L==='fr'?'Question suivante':'Next question'),
+      nextQ: () => { if (last){ const best = Math.max(s.best ?? 0, s.score); this.set({done:true, best}); } else this.setState({qi: s.qi+1, picked:null}); window.scrollTo(0,0); },
+      finalScore: `${s.score}/${QUIZ.length}`,
+      finalMsg: s.score >= 8 ? (L==='fr'?'Excellent, vous maîtrisez les méthodes du chapitre.':'Excellent, you know this chapter\'s methods.') : s.score >= 6 ? (L==='fr'?'Bonne base. Relisez les fiches où vous avez hésité.':'Good foundation. Review the cards you hesitated on.') : (L==='fr'?'Relisez les fiches méthodes, puis retentez le quiz.':'Review the method cards, then try again.'),
+      bestLabel: L==='fr' ? `Meilleur score : ${s.best ?? s.score}/${QUIZ.length}` : `Best score: ${s.best ?? s.score}/${QUIZ.length}`,
+      restartQuiz: () => this.setState({qi:0, picked:null, score:0, done:false}),
+      principles: PRINCIPLES[L], glossary: GLOSS[L], resources: RES[L],
+      tabs: t.tabs.map((label,i) => { const on = s.tab===tabIds[i]; return { label, ink: on ? 'var(--brand)' : 'var(--muted)', dot: on ? '20px' : '0px', go: () => { this.setState({tab: tabIds[i], playing: null}, () => { if (tabIds[i]==='methods') setTimeout(()=>this.goTo(this.state.idx,false),30); }); window.scrollTo(0,0); } }; })
+    };
+  }
+}
+</script>
+</body>
+</html>
