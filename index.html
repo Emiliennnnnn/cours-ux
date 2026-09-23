@@ -774,7 +774,7 @@ class Component extends DCLogic {
     const payload = {system: SYSTEM, max_tokens: 700, messages: messages.slice(-12).map(m=>({role:m.role, content:m.text}))};
     try {
       if (window.claude && window.claude.complete) reply = await window.claude.complete(payload);
-      else { const r = await fetch('/api/claude', {method:'POST', headers:{'content-type':'application/json'}, body: JSON.stringify(payload)}); const d = await r.json(); if (!r.ok) throw new Error(d.error || 'API error'); reply = d.text; }
+      else { const r = await fetch('/api/claude', {method:'POST', headers:{'content-type':'application/json'}, body: JSON.stringify({messages: payload.messages})}); const d = await r.json(); if (!r.ok) throw new Error(d.error || 'API error'); reply = d.text; }
     }
     catch(e){ reply = T[this.state.lang].chatError; }
     this.setState(s => ({messages:[...s.messages, {role:'assistant', text:(reply||'').trim()}], thinking:false}), () => window.scrollTo({top: document.body.scrollHeight, behavior:'smooth'}));
